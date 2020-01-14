@@ -48,19 +48,7 @@ var Seattle = {
 // var domSimulation = document.getElementById('cookieSales');
 // var storeSimulation = document.createElement('ul');
 // storeSimulation.textContent = 'Seattle';
-Seattle.footTrafficSimulation();
-Seattle.cookieTotalsSimultation();
-Tokyo.footTrafficSimulation();
-Tokyo.cookieTotalsSimultation();
 
-Dubai.footTrafficSimulation();
-Dubai.cookieTotalsSimultation();
-
-Paris.footTrafficSimulation();
-Paris.cookieTotalsSimultation();
-
-Lima.footTrafficSimulation();
-Lima.cookieTotalsSimultation();
 // console.log(Seattle.hoursString.length);
 // console.log(Seattle.hoursString[1]);
 // for(var i = 0; i < Seattle.hoursString.length; i++){
@@ -298,3 +286,17 @@ function listTotalSalesMethod(minCust, maxCust, AvgSale, hoursString, hoursFootT
     hoursSalesString[i] = (Math.round(x * AvgSale));
   }
 }
+
+Seattle.footTrafficSimulation();
+Seattle.cookieTotalsSimultation();
+Tokyo.footTrafficSimulation();
+Tokyo.cookieTotalsSimultation();
+
+Dubai.footTrafficSimulation();
+Dubai.cookieTotalsSimultation();
+
+Paris.footTrafficSimulation();
+Paris.cookieTotalsSimultation();
+
+Lima.footTrafficSimulation();
+Lima.cookieTotalsSimultation();
