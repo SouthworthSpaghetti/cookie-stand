@@ -4,18 +4,32 @@ var Seattle = {
   minCust: 23,
   maxCust: 65,
   AvgSale: 6.3,
-  hoursDaily: [[6, 19]],//store hours
+  scheduleDujour: [[6, 19]],//store hours
   totalSalesArray: []
   listTotalSalesMethod: function(){
-    var hoursLength = 0;
-    var incrimentSales_per_Hour = [];
-    for (i = 0; i < this.hoursDaily.length; i++) {//
-      incrimentSales_per_Hour.length = incrimentSales_per_Hour.length + (hoursDaily[i][1] - hoursDaily[i][0]);
-      for (jj = hoursDaily[i][0]; jj < hoursDaily[i][1]; jj++){
-        incrimentSales_per_Hour[i] = jj;
-      }
+    var scheduleDujour = [[6, 13], [16, 21]];//store hours<hoursDaily>
+    var hoursString = [];//hoursString to be appened to Dom
+    var x = 0;
+    for (i = 0; i < scheduleDujour.length; i++) {//calculating number of iterations of hours between all start and end times(ie. 06:00-10:00 & 13:00-19:00)
+      hoursString.length = hoursString.length + (scheduleDujour[i][1] - scheduleDujour[i][0]);//caluclate daily total hours, which will assign size of hoursString array; to house strings representative of each invidual hour incriment
+    }
+
+    for (j = 0; j < scheduleDujour.length; j++) {//going to loop twice, defining schedule incriment
+
+      hoursString[x] = scheduleDujour[j][0];
+      for (jj = scheduleDujour[j][0]; jj < scheduleDujour[j][1] + 1; jj++) {
+        // hoursString[j + 1] = jj;
+        console.log(jj);
+        hoursString[x++] = jj;
+        }
+      } 
+    }
     }
   }
+
+
+
+
 }
 
 var Tokyo = {
