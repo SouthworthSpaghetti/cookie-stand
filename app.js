@@ -50,6 +50,17 @@ var Seattle = {
 // storeSimulation.textContent = 'Seattle';
 Seattle.footTrafficSimulation();
 Seattle.cookieTotalsSimultation();
+Tokyo.footTrafficSimulation();
+Tokyo.cookieTotalsSimultation();
+
+Dubai.footTrafficSimulation();
+Dubai.cookieTotalsSimultation();
+
+Paris.footTrafficSimulation();
+Paris.cookieTotalsSimultation();
+
+Lima.footTrafficSimulation();
+Lima.cookieTotalsSimultation();
 // console.log(Seattle.hoursString.length);
 // console.log(Seattle.hoursString[1]);
 // for(var i = 0; i < Seattle.hoursString.length; i++){
@@ -75,7 +86,40 @@ Seattle.cookieTotalsSimultation();
 var Tokyo = {
   minCust: 3,
   maxCust: 24,
-  AvgSale: 1.2
+  AvgSale: 1.2,
+  scheduleDujour: [[6, 19]],//store hours, add commas between schedule iterations,<[[6, 11],[15, 18]]>
+  hoursString: [],
+  hoursFootTraffic: [],
+  hoursSalesString: [],
+
+  footTrafficSimulation: function () {
+    console.log('jkjkjk');
+    listTotalHoursMethod(this.scheduleDujour, this.hoursString);
+  },
+  cookieTotalsSimultation: function () {
+    // listTotalHoursMethod(this.scheduleDujour, this.hoursString);
+    // listTotalSalesMethod(this.minCust, this.maxCust, this.AvgSale, this.hoursString, this.hoursFootTraffic, this.hoursSalesString);
+    listTotalSalesMethod(this.minCust, this.maxCust, this.AvgSale, this.hoursString, this.hoursFootTraffic, this.hoursSalesString);
+
+
+    var domSimulation = document.getElementById('cookieSales');
+    var storeSimulation = document.createElement('ul');
+    storeSimulation.textContent = 'Tokyo';
+    for (var i = 0; i < this.hoursString.length; i++) {
+      var listItemHourlyUpdate = document.createElement('li');
+      listItemHourlyUpdate.textContent = this.hoursString[i] + ': ' + this.hoursSalesString[i];
+      storeSimulation.appendChild(listItemHourlyUpdate);
+
+    }
+    domSimulation.appendChild(storeSimulation);
+  }
+
+}
+
+var Dubai = {
+  minCust: 11,
+  maxCust: 38,
+  AvgSale: 3.7,
   scheduleDujour: [[6, 19]],//store hours, add commas between schedule iterations,<[[6, 11],[15, 18]]>
   hoursString: [],
   hoursFootTraffic: [],
@@ -92,39 +136,7 @@ var Tokyo = {
 
     var domSimulation = document.getElementById('cookieSales');
     var storeSimulation = document.createElement('ul');
-    storeSimulation.textContent = 'Seattle';
-    for (var i = 0; i < this.hoursString.length; i++) {
-      var listItemHourlyUpdate = document.createElement('li');
-      listItemHourlyUpdate.textContent = this.hoursString[i] + ': ' + this.hoursSalesString[i];
-      storeSimulation.appendChild(listItemHourlyUpdate);
-
-    }
-    domSimulation.appendChild(storeSimulation);
-  }
-
-}
-
-var Dubai = {
-  minCust: 11,
-  maxCust: 38,
-  AvgSale: 3.7,
-    scheduleDujour: [[6, 19]],//store hours, add commas between schedule iterations,<[[6, 11],[15, 18]]>
-  hoursString: [],
-  hoursFootTraffic: [],
-  hoursSalesString: [],
-
-  footTrafficSimulation: function () {
-    listTotalHoursMethod(this.scheduleDujour, this.hoursString);
-  },
-  cookieTotalsSimultation: function () {
-    // listTotalHoursMethod(this.scheduleDujour, this.hoursString);
-    // listTotalSalesMethod(this.minCust, this.maxCust, this.AvgSale, this.hoursString, this.hoursFootTraffic, this.hoursSalesString);
-    listTotalSalesMethod(this.minCust, this.maxCust, this.AvgSale, this.hoursString, this.hoursFootTraffic, this.hoursSalesString);
-
-
-    var domSimulation = document.getElementById('cookieSales');
-    var storeSimulation = document.createElement('ul');
-    storeSimulation.textContent = 'Seattle';
+    storeSimulation.textContent = 'Dubai';
     for (var i = 0; i < this.hoursString.length; i++) {
       var listItemHourlyUpdate = document.createElement('li');
       listItemHourlyUpdate.textContent = this.hoursString[i] + ': ' + this.hoursSalesString[i];
@@ -140,7 +152,7 @@ var Paris = {
   minCust: 20,
   maxCust: 38,
   AvgSale: 2.3,
-    scheduleDujour: [[6, 19]],//store hours, add commas between schedule iterations,<[[6, 11],[15, 18]]>
+  scheduleDujour: [[6, 19]],//store hours, add commas between schedule iterations,<[[6, 11],[15, 18]]>
   hoursString: [],
   hoursFootTraffic: [],
   hoursSalesString: [],
@@ -156,7 +168,7 @@ var Paris = {
 
     var domSimulation = document.getElementById('cookieSales');
     var storeSimulation = document.createElement('ul');
-    storeSimulation.textContent = 'Seattle';
+    storeSimulation.textContent = 'Paris';
     for (var i = 0; i < this.hoursString.length; i++) {
       var listItemHourlyUpdate = document.createElement('li');
       listItemHourlyUpdate.textContent = this.hoursString[i] + ': ' + this.hoursSalesString[i];
@@ -172,7 +184,7 @@ var Lima = {
   minCust: 2,
   maxCust: 16,
   AvgSale: 4.6,
-    scheduleDujour: [[6, 19]],//store hours, add commas between schedule iterations,<[[6, 11],[15, 18]]>
+  scheduleDujour: [[6, 19]],//store hours, add commas between schedule iterations,<[[6, 11],[15, 18]]>
   hoursString: [],
   hoursFootTraffic: [],
   hoursSalesString: [],
@@ -188,7 +200,7 @@ var Lima = {
 
     var domSimulation = document.getElementById('cookieSales');
     var storeSimulation = document.createElement('ul');
-    storeSimulation.textContent = 'Seattle';
+    storeSimulation.textContent = 'Lima';
     for (var i = 0; i < this.hoursString.length; i++) {
       var listItemHourlyUpdate = document.createElement('li');
       listItemHourlyUpdate.textContent = this.hoursString[i] + ': ' + this.hoursSalesString[i];
@@ -251,6 +263,7 @@ function randomFootTraffic(min, max){
 
 function listTotalHoursMethod(scheduleDujour, hoursString) {
   var x = 0;
+  console.log('hours')
   // var hoursString = [];
   // for (var i = 0; i < scheduleDujour.length; i++) {//calculating number of iterations of hours between all start and end times(ie. 06:00-10:00 & 13:00-19:00)
   //   hoursString.length = hoursString.length + (scheduleDujour[i][1] - scheduleDujour[i][0]);//caluclate daily total hours, which will assign size of this.hoursString array; to house strings representative of each invidual hour incriment
