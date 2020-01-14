@@ -2,18 +2,81 @@
 console.log('Sup');
 
 // var hoursString = [];
+function CreateCoffeeShop(newName, minFootTraffic, maxFootTraffic, estimatedSalesPerHour, dailySchduleArray){
+  this.location = newName;
+  this.minCust = minFootTraffic;
+  this.maxCust = maxFootTraffic;
+  this.avgSale = estimatedSalesPerHours;
+  this.ScheduleDujour = dailySchduleArray;
+  //this.hoursString = [];//store hours in a list, generated via footTrafficSimulation
+  this.hoursFootTraffic = [];//IF WE CAN GENERATE THE ABOVE ARRAY INSIDE cookieTotalsSimulation (and not footTrafficSimulation), WE WON'T NEED THIS ARRAY AS A PROPERTY
+  this.hoursSalesString = [];
+
+}//end of CreateCoffeeShop constructor
+// footTrafficSimulation: function(){
+// listTotalHoursMethod(this.scheduleDujour, this.hoursString);//sets the hoursFootTraffic array
+CreateCoffeeShop.prototype.listTotalHoursMethod = function() {
+  var x = 0;
+  var hoursString = [];
+  console.log('hours')
+  // var hoursString = [];
+  // for (var i = 0; i < scheduleDujour.length; i++) {//calculating number of iterations of hours between all start and end times(ie. 06:00-10:00 & 13:00-19:00)
+  //   hoursString.length = hoursString.length + (scheduleDujour[i][1] - scheduleDujour[i][0]);//caluclate daily total hours, which will assign size of this.hoursString array; to house strings representative of each invidual hour incriment
+  // }
+
+  for (var j = 0; j < this.scheduleDujour.length; j++) {//going to loop twice, defining schedule incriment
+    hoursString[x] = this.scheduleDujour[j][0];
+    for (var jj = this.scheduleDujour[j][0]; jj < this.scheduleDujour[j][1] + 1; jj++) {
+      // this.hoursString[j + 1] = jj;
+      //console.log(jj);
+      hoursString[x++] = jj;
+    }
+  }
+  for (var i = 0; i < hoursString.length; i++) {//military to standard time am/pm
+    if (hoursString[i] > 12) {
+      hoursString[i] = (hoursString[i] - 12) + 'pm';
+    } else if (this.hoursString[i] < 12) {
+      hoursString[i] = hoursString[i] + 'am';
+    } else
+      hoursString[i] = hoursString[i] + 'pm';//noon time
+  }
+
+  for (var i = 0; i < hoursString.length; i++) {
+    console.log(this.minCust);
+    var x = randomFootTraffic(this.minCust, this.maxCust);
+    // this.hoursSalesString[i] = x;
+    this.hoursFootTraffic[i] = x;
+    this.hoursSalesString[i] = (Math.round(x * this.AvgSale));
+  }
+}//END OF LIST TOTALHOURS METHOD
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 var Seattle = {
   minCust: 23,
   maxCust: 65,
   AvgSale: 6.3,
   scheduleDujour: [[6, 19]],//store hours, add commas between schedule iterations,<[[6, 11],[15, 18]]>
-  hoursString: [],
+  hoursString: [],//store hours in a list, generated via footTrafficSimulation
   hoursFootTraffic: [],
   hoursSalesString: [],
 
   footTrafficSimulation: function(){
-    listTotalHoursMethod(this.scheduleDujour, this.hoursString);
+    listTotalHoursMethod(this.scheduleDujour, this.hoursString);//sets the hoursFootTraffic array
   },
   cookieTotalsSimultation: function(){
     // listTotalHoursMethod(this.scheduleDujour, this.hoursString);
@@ -26,7 +89,7 @@ var Seattle = {
     storeSimulation.textContent = 'Seattle';
     for (var i = 0; i < this.hoursString.length; i++) {
       var listItemHourlyUpdate = document.createElement('li');
-      listItemHourlyUpdate.textContent = this.hoursString[i] + ': ' + this.hoursSalesString[i];
+      listItemHourlyUpdate.textContent = this.hoursString[i] + ': ' + this.hoursSalesString[i] + ' cookies';
       storeSimulation.appendChild(listItemHourlyUpdate);
 
     }
@@ -95,7 +158,7 @@ var Tokyo = {
     storeSimulation.textContent = 'Tokyo';
     for (var i = 0; i < this.hoursString.length; i++) {
       var listItemHourlyUpdate = document.createElement('li');
-      listItemHourlyUpdate.textContent = this.hoursString[i] + ': ' + this.hoursSalesString[i];
+      listItemHourlyUpdate.textContent = this.hoursString[i] + ': ' + this.hoursSalesString[i] + ' cookies';
       storeSimulation.appendChild(listItemHourlyUpdate);
 
     }
@@ -127,7 +190,7 @@ var Dubai = {
     storeSimulation.textContent = 'Dubai';
     for (var i = 0; i < this.hoursString.length; i++) {
       var listItemHourlyUpdate = document.createElement('li');
-      listItemHourlyUpdate.textContent = this.hoursString[i] + ': ' + this.hoursSalesString[i];
+      listItemHourlyUpdate.textContent = this.hoursString[i] + ': ' + this.hoursSalesString[i] + ' cookies';
       storeSimulation.appendChild(listItemHourlyUpdate);
 
     }
@@ -159,7 +222,7 @@ var Paris = {
     storeSimulation.textContent = 'Paris';
     for (var i = 0; i < this.hoursString.length; i++) {
       var listItemHourlyUpdate = document.createElement('li');
-      listItemHourlyUpdate.textContent = this.hoursString[i] + ': ' + this.hoursSalesString[i];
+      listItemHourlyUpdate.textContent = this.hoursString[i] + ': ' + this.hoursSalesString[i] + ' cookies';
       storeSimulation.appendChild(listItemHourlyUpdate);
 
     }
@@ -191,7 +254,7 @@ var Lima = {
     storeSimulation.textContent = 'Lima';
     for (var i = 0; i < this.hoursString.length; i++) {
       var listItemHourlyUpdate = document.createElement('li');
-      listItemHourlyUpdate.textContent = this.hoursString[i] + ': ' + this.hoursSalesString[i];
+      listItemHourlyUpdate.textContent = this.hoursString[i] + ': ' + this.hoursSalesString[i] + ' cookies';
       storeSimulation.appendChild(listItemHourlyUpdate);
 
     }
@@ -201,7 +264,7 @@ var Lima = {
 }
 
 function randomFootTraffic(min, max){
-  return Math.round(Math.random(0) * (max - min)) + min;
+  return Math.round(Math.random() * (max - min)) + min;
   // console.log(Math.round(Math.random(0) * (max - min)) + min);
 }
 
