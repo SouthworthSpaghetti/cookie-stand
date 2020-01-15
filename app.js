@@ -9,78 +9,68 @@ function CreateCoffeeShop(newName, minFootTraffic, maxFootTraffic, estimatedSale
   this.avgSale = estimatedSalesPerHour;
   this.scheduleDujour = dailySchduleArray;
   this.hoursString = timeString(this.scheduleDujour);//store hours in a list, generated via footTrafficSimulation
-  this.hoursFootTraffic = [];//IF WE CAN GENERATE THE ABOVE ARRAY INSIDE cookieTotalsSimulation (and not footTrafficSimulation), WE WON'T NEED THIS ARRAY AS A PROPERTY
-  this.hoursSalesString = [];
+  //this.hoursFootTraffic = [];//IF WE CAN GENERATE THE ABOVE ARRAY INSIDE cookieTotalsSimulation (and not footTrafficSimulation), WE WON'T NEED THIS ARRAY AS A PROPERTY
+  this.hoursSalesString = listTotalSalesArray(this.hoursString, this.minCust, this.maxCust, this.avgSale, this.hoursFootTraffic);
 
 }//end of CreateCoffeeShop constructor
-// footTrafficSimulation: function(){
-// listTotalHoursMethod(this.scheduleDujour, this.hoursString);//sets the hoursFootTraffic array
-CreateCoffeeShop.prototype.listTotalHoursMethod = function() {
+
+function listTotalSalesArray(hoursString, minCust, maxCust, avgSale) {
   var x = 0;
-  // var hoursString = [];
-  console.log('hours');
-  // var hoursString = [];
-  // for (var i = 0; i < scheduleDujour.length; i++) {//calculating number of iterations of hours between all start and end times(ie. 06:00-10:00 & 13:00-19:00)
-  //   hoursString.length = hoursString.length + (scheduleDujour[i][1] - scheduleDujour[i][0]);//caluclate daily total hours, which will assign size of this.hoursString array; to house strings representative of each invidual hour incriment
-  // }
-
-  // for (var j = 0; j < this.scheduleDujour.length; j++) {//going to loop twice, defining schedule incriment//being hoursString build
-  //   this.hoursString[x] = this.scheduleDujour[j][0];
-  //   for (var jj = this.scheduleDujour[j][0]; jj < this.scheduleDujour[j][1] + 1; jj++) {
-  //     // this.hoursString[j + 1] = jj;
-  //     //console.log(jj);
-  //     this.hoursString[x++] = jj;
-  //   }
-  // }
-  // for (var i = 0; i < this.hoursString.length; i++) {//military to standard time am/pm
-  //   if (this.hoursString[i] > 12) {
-  //     this.hoursString[i] = (this.hoursString[i] - 12) + 'pm';
-  //   } else if (this.hoursString[i] < 12) {
-  //     this.hoursString[i] = this.hoursString[i] + 'am';
-  //   } else
-  //     this.hoursString[i] = this.hoursString[i] + 'pm';//noon time
-  // }//return hoursString
-
-  for (var i = 0; i < this.hoursString.length; i++) {
-    var x = randomFootTraffic(this.minCust, this.maxCust);
+  var hoursFootTraffic = [];
+  var hoursSalesString = [];//return value
+  for (var i = 0; i < hoursString.length; i++) {
+    x = randomFootTraffic(minCust, maxCust);
     // this.hoursSalesString[i] = x;
-    this.hoursFootTraffic[i] = x;
-    console.log(x);
-    this.hoursSalesString[i] = (Math.round(x * this.avgSale));
+    hoursFootTraffic[i] = x;
+    hoursSalesString[i] = (Math.round(x * avgSale));
   }
-}//END OF LIST CreateCoffeeShop PROTOTYPE
+  return hoursSalesString;
+}//END OF LIST Total Hours
+
+
+// CreateCoffeeShop.prototype.listTotalHoursMethod = function() {
+//   var x = 0;
+//   for (var i = 0; i < this.hoursString.length; i++) {
+//     x = randomFootTraffic(this.minCust, this.maxCust);
+//     // this.hoursSalesString[i] = x;
+//     this.hoursFootTraffic[i] = x;
+//     console.log(x);
+//     this.hoursSalesString[i] = (Math.round(x * this.avgSale));
+//   }
+// }//END OF LIST CreateCoffeeShop PROTOTYPE
 
 function randomFootTraffic(min, max){
   return Math.round(Math.random() * (max - min)) + min;
   // console.log(Math.round(Math.random(0) * (max - min)) + min);
 }
 
-
-
-CreateCoffeeShop.prototype.render = function(){
-  this.listTotalHoursMethod();
+CreateCoffeeShop.prototype.render = function(){//take out header build
+  // this.listTotalHoursMethod();///TRYING TO BUILD INTO FUNCTION, INSTEAD
   // var standardBusinessHours = [];
   console.log('standardBusinessHours');
-  var standardBusinessHours = timeString([[6, 30]]);
+  var standardBusinessHours = timeString([[6, 19]]);
   console.log('standardBusinessHours');
+  // var domSimulation = document.getElementById('cookieSales');//DOM INJECTION
   var domSimulation = document.getElementById('cookieSales');//DOM INJECTION
+  // var storeSimulation = document.createElement('tr');//or <ul>, for list
   var storeSimulation = document.createElement('table');//or <ul>, for list
-  var headerRow = document.createElement('tr');//in list, this isn't necessary
+  var tableRow = document.createElement('tr');//in list, this isn't necessary
   // storeSimulation.textContent = 'Seattle';//NOW A PROPERTY OF THE STORE OBJECT
   for (var i = 0; i < standardBusinessHours.length; i++) {
-    var listItemHourlyUpdate = document.createElement('th');
-    listItemHourlyUpdate.textContent = standardBusinessHours[i] + ': ' + this.hoursSalesString[i] + ' cookies';
+    var listItemHourlyUpdate = document.createElement('td');
+    listItemHourlyUpdate.textContent = this.hoursSalesString[i] + ' cookies';
     storeSimulation.appendChild(listItemHourlyUpdate);
   }
 domSimulation.appendChild(storeSimulation);
-}//en render
+}//end render 
 
-function timeString(bracketTimeArray) {//military start/end array into standard time list array
+
+
+function timeString(bracketTimeArray) {//military open time//end time array --> into standard time list array
+  //   hoursString.length = hoursString.length + (scheduleDujour[i][1] - scheduleDujour[i][0]);//with loop, caluclates daily total number of hours, if needed in future
   var x = 0;
-  console.log('Here we go');
   var standardTimeArray = [];
-  for (var j = 0; j < bracketTimeArray.length; j++) {//going to loop twice, defining schedule incriment
-
+  for (var j = 0; j < bracketTimeArray.length; j++) {//going to loop thru schedules' start and end instances (ie. will loop thru twice for schedule: 06:00-10:00 & 13:00-19:00)
     standardTimeArray[x] = bracketTimeArray[j][0];
     for (var jj = bracketTimeArray[j][0]; jj < bracketTimeArray[j][1] + 1; jj++) {
       // this.hoursString[j + 1] = jj;
@@ -100,11 +90,31 @@ function timeString(bracketTimeArray) {//military start/end array into standard 
   return standardTimeArray;
 }//end military to standard time
 
+//one
+  // this.listTotalHoursMethod();///TRYING TO BUILD INTO FUNCTION, INSTEAD
+  // var standardBusinessHours = [];
+console.log('standardBusinessHours');
+var standardBusinessHours = timeString([[6, 19]]);
+console.log('standardBusinessHours');
+var domTableLocale = document.getElementById('cookieSales');//DOM INJECTION
+var domNewTable = document.createElement('table');//or <ul>, for list
+var headerRow = document.createElement('tr');//in list, this isn't necessary
+// domNewTable.textContent = 'Seattle';//NOW A PROPERTY OF THE STORE OBJECT
+for (var i = 0; i < standardBusinessHours.length; i++) {
+  var listItemHourlyUpdate = document.createElement('th');
+  listItemHourlyUpdate.textContent = standardBusinessHours[i];
+  domNewTable.appendChild(listItemHourlyUpdate);
+}
+domTableLocale.appendChild(domNewTable);
+//end one time header build
+
+var tokyo = new CreateCoffeeShop('Tokyo', 23, 33, 1.5, [[6, 19]]);
 var seattle = new CreateCoffeeShop('Seattle', 23, 65, 6.3, [[6, 19]]);//newName, minFootTraffic, maxFootTraffic, estimatedSalesPerHour, dailySchduleArray/././././minCust: 23,
 //   maxCust: 65,
 //   AvgSale: 6.3,
 //   scheduleDujour: [[6, 19]]
 // seattle.listTotalHoursMethod();
+tokyo.render();
 seattle.render();
 console.log(seattle);
 
