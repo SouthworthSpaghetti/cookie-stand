@@ -1,9 +1,11 @@
 'use strict';
 console.log('Sup');
+// var globalTotals = 0;
 
 // var hoursString = [];
 
-var Seattle = {
+var seattle = {
+  locale: 'Seattle',
   minCust: 23,
   maxCust: 65,
   AvgSale: 6.3,
@@ -20,16 +22,19 @@ var Seattle = {
     // listTotalSalesMethod(this.minCust, this.maxCust, this.AvgSale, this.hoursString, this.hoursFootTraffic, this.hoursSalesString);
     listTotalSalesMethod(this.minCust, this.maxCust, this.AvgSale, this.hoursString, this.hoursFootTraffic, this.hoursSalesString);
 
-
+    var globalTotals = 0;
     var domSimulation = document.getElementById('cookieSales');
     var storeSimulation = document.createElement('ul');
-    storeSimulation.textContent = 'Seattle';
+    storeSimulation.textContent = this.locale;
     for (var i = 0; i < this.hoursString.length; i++) {
       var listItemHourlyUpdate = document.createElement('li');
       listItemHourlyUpdate.textContent = this.hoursString[i] + ': ' + this.hoursSalesString[i];
       storeSimulation.appendChild(listItemHourlyUpdate);
-
+      globalTotals += this.hoursSalesString[i];
     }
+    var finalLoad = document.createElement('li');
+    finalLoad.textContent = 'Total: ' + globalTotals;
+    storeSimulation.appendChild(finalLoad);
     domSimulation.appendChild(storeSimulation);
   }
 
@@ -71,7 +76,8 @@ var Seattle = {
 // console.log(Seattle.hoursString);
 // render
 
-var Tokyo = {
+var tokyo = {
+  locale: 'Tokyo',
   minCust: 3,
   maxCust: 24,
   AvgSale: 1.2,
@@ -89,22 +95,26 @@ var Tokyo = {
     // listTotalSalesMethod(this.minCust, this.maxCust, this.AvgSale, this.hoursString, this.hoursFootTraffic, this.hoursSalesString);
     listTotalSalesMethod(this.minCust, this.maxCust, this.AvgSale, this.hoursString, this.hoursFootTraffic, this.hoursSalesString);
 
-
+    var globalTotals = 0;
     var domSimulation = document.getElementById('cookieSales');
     var storeSimulation = document.createElement('ul');
-    storeSimulation.textContent = 'Tokyo';
+    storeSimulation.textContent = this.locale;
     for (var i = 0; i < this.hoursString.length; i++) {
       var listItemHourlyUpdate = document.createElement('li');
       listItemHourlyUpdate.textContent = this.hoursString[i] + ': ' + this.hoursSalesString[i];
       storeSimulation.appendChild(listItemHourlyUpdate);
-
+      globalTotals += this.hoursSalesString[i];
     }
+    var finalLoad = document.createElement('li');
+    finalLoad.textContent = 'Total: ' + globalTotals;
+    storeSimulation.appendChild(finalLoad);
     domSimulation.appendChild(storeSimulation);
   }
 
 }
 
-var Dubai = {
+var dubai = {
+  locale: 'Dubai',
   minCust: 11,
   maxCust: 38,
   AvgSale: 3.7,
@@ -121,22 +131,26 @@ var Dubai = {
     // listTotalSalesMethod(this.minCust, this.maxCust, this.AvgSale, this.hoursString, this.hoursFootTraffic, this.hoursSalesString);
     listTotalSalesMethod(this.minCust, this.maxCust, this.AvgSale, this.hoursString, this.hoursFootTraffic, this.hoursSalesString);
 
-
+    var globalTotals = 0;
     var domSimulation = document.getElementById('cookieSales');
     var storeSimulation = document.createElement('ul');
-    storeSimulation.textContent = 'Dubai';
+    storeSimulation.textContent = this.locale;
     for (var i = 0; i < this.hoursString.length; i++) {
       var listItemHourlyUpdate = document.createElement('li');
       listItemHourlyUpdate.textContent = this.hoursString[i] + ': ' + this.hoursSalesString[i];
       storeSimulation.appendChild(listItemHourlyUpdate);
-
+      globalTotals += this.hoursSalesString[i];
     }
+    var finalLoad = document.createElement('li');
+    finalLoad.textContent = 'Total: ' + globalTotals;
+    storeSimulation.appendChild(finalLoad);
     domSimulation.appendChild(storeSimulation);
   }
 
 }
 
-var Paris = {
+var paris = {
+  locale: 'Paris',
   minCust: 20,
   maxCust: 38,
   AvgSale: 2.3,
@@ -153,22 +167,26 @@ var Paris = {
     // listTotalSalesMethod(this.minCust, this.maxCust, this.AvgSale, this.hoursString, this.hoursFootTraffic, this.hoursSalesString);
     listTotalSalesMethod(this.minCust, this.maxCust, this.AvgSale, this.hoursString, this.hoursFootTraffic, this.hoursSalesString);
 
-
+    var globalTotals = 0;
     var domSimulation = document.getElementById('cookieSales');
     var storeSimulation = document.createElement('ul');
-    storeSimulation.textContent = 'Paris';
+    storeSimulation.textContent = this.locale;
     for (var i = 0; i < this.hoursString.length; i++) {
       var listItemHourlyUpdate = document.createElement('li');
       listItemHourlyUpdate.textContent = this.hoursString[i] + ': ' + this.hoursSalesString[i];
       storeSimulation.appendChild(listItemHourlyUpdate);
-
+      globalTotals += this.hoursSalesString[i];
     }
+    var finalLoad = document.createElement('li');
+    finalLoad.textContent = 'Total: ' + globalTotals;
+    storeSimulation.appendChild(finalLoad);
     domSimulation.appendChild(storeSimulation);
   }
 
 }
 
-var Lima = {
+var lima = {
+  locale: 'Lima',
   minCust: 2,
   maxCust: 16,
   AvgSale: 4.6,
@@ -185,16 +203,19 @@ var Lima = {
     // listTotalSalesMethod(this.minCust, this.maxCust, this.AvgSale, this.hoursString, this.hoursFootTraffic, this.hoursSalesString);
     listTotalSalesMethod(this.minCust, this.maxCust, this.AvgSale, this.hoursString, this.hoursFootTraffic, this.hoursSalesString);
 
-
+    var globalTotals = 0;
     var domSimulation = document.getElementById('cookieSales');
     var storeSimulation = document.createElement('ul');
-    storeSimulation.textContent = 'Lima';
+    storeSimulation.textContent = this.locale;
     for (var i = 0; i < this.hoursString.length; i++) {
       var listItemHourlyUpdate = document.createElement('li');
       listItemHourlyUpdate.textContent = this.hoursString[i] + ': ' + this.hoursSalesString[i];
       storeSimulation.appendChild(listItemHourlyUpdate);
-
+      globalTotals += this.hoursSalesString[i];
     }
+    var finalLoad = document.createElement('li');
+    finalLoad.textContent = 'Total: ' + globalTotals;
+    storeSimulation.appendChild(finalLoad);
     domSimulation.appendChild(storeSimulation);
   }
 
@@ -287,16 +308,16 @@ function listTotalSalesMethod(minCust, maxCust, AvgSale, hoursString, hoursFootT
   }
 }
 
-Seattle.footTrafficSimulation();
-Seattle.cookieTotalsSimultation();
-Tokyo.footTrafficSimulation();
-Tokyo.cookieTotalsSimultation();
+seattle.footTrafficSimulation();
+seattle.cookieTotalsSimultation();
+tokyo.footTrafficSimulation();
+tokyo.cookieTotalsSimultation();
 
-Dubai.footTrafficSimulation();
-Dubai.cookieTotalsSimultation();
+dubai.footTrafficSimulation();
+dubai.cookieTotalsSimultation();
 
-Paris.footTrafficSimulation();
-Paris.cookieTotalsSimultation();
+paris.footTrafficSimulation();
+paris.cookieTotalsSimultation();
 
-Lima.footTrafficSimulation();
-Lima.cookieTotalsSimultation();
+lima.footTrafficSimulation();
+lima.cookieTotalsSimultation();
