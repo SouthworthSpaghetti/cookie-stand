@@ -9,35 +9,38 @@ function CreateCoffeeShop(newName, minFootTraffic, maxFootTraffic, estimatedSale
   this.avgSale = estimatedSalesPerHour;
   this.scheduleDujour = dailySchduleArray;
   this.hoursString = timeString(this.scheduleDujour);//store hours in a list, generated via footTrafficSimulation
-  //this.hoursFootTraffic = [];//IF WE CAN GENERATE THE ABOVE ARRAY INSIDE cookieTotalsSimulation (and not footTrafficSimulation), WE WON'T NEED THIS ARRAY AS A PROPERTY
-  this.hoursSalesString = listTotalSalesArray(this.hoursString, this.minCust, this.maxCust, this.avgSale, this.hoursFootTraffic);
+  // this.hoursFootTraffic = [];//IF WE CAN GENERATE THE ABOVE ARRAY INSIDE listTotalSalesArray (and not footTrafficSimulation), WE WON'T NEED THIS ARRAY AS A PROPERTY
+  this.hoursSalesString = [];
+  // this.hoursSalesString = listTotalSalesArray(this.hoursString, this.minCust, this.maxCust, this.avgSale, this.hoursFootTraffic);//prototype or function?
 
 }//end of CreateCoffeeShop constructor
 
-function listTotalSalesArray(hoursString, minCust, maxCust, avgSale) {
-  var x = 0;
-  var hoursFootTraffic = [];
-  var hoursSalesString = [];//return value
-  for (var i = 0; i < hoursString.length; i++) {
-    x = randomFootTraffic(minCust, maxCust);
-    // this.hoursSalesString[i] = x;
-    hoursFootTraffic[i] = x;
-    hoursSalesString[i] = (Math.round(x * avgSale));
-  }
-  return hoursSalesString;
-}//END OF LIST Total Hours
-
-
-// CreateCoffeeShop.prototype.listTotalHoursMethod = function() {
+// function listTotalSalesArray(hoursString, minCust, maxCust, avgSale) {
 //   var x = 0;
-//   for (var i = 0; i < this.hoursString.length; i++) {
-//     x = randomFootTraffic(this.minCust, this.maxCust);
+//   var hoursFootTraffic = [];
+//   var hoursSalesString = [];//return value
+//   for (var i = 0; i < hoursString.length; i++) {
+//     x = randomFootTraffic(minCust, maxCust);
 //     // this.hoursSalesString[i] = x;
-//     this.hoursFootTraffic[i] = x;
-//     console.log(x);
-//     this.hoursSalesString[i] = (Math.round(x * this.avgSale));
+//     hoursFootTraffic[i] = x;
+//     hoursSalesString[i] = (Math.round(x * avgSale));
 //   }
-// }//END OF LIST CreateCoffeeShop PROTOTYPE
+//   return hoursSalesString;
+// }//END OF LIST Total Hours
+
+
+CreateCoffeeShop.prototype.listTotalSalesArray = function() {
+  var x = 0;
+  // var hoursFootTraffic = [];
+  // var hoursSalesString = [];//return value
+  for (var i = 0; i < this.hoursString.length; i++) {
+    x = randomFootTraffic(this.minCust, this.maxCust);
+    // this.hoursSalesString[i] = x;
+    // hoursFootTraffic[i] = x;
+    console.log(x);
+    this.hoursSalesString[i] = (Math.round(x * this.avgSale));
+  }
+}//END OF LIST CreateCoffeeShop PROTOTYPE
 
 function randomFootTraffic(min, max){
   return Math.round(Math.random() * (max - min)) + min;
@@ -51,14 +54,17 @@ CreateCoffeeShop.prototype.render = function(){//take out header build
   var standardBusinessHours = timeString([[6, 19]]);
   console.log('standardBusinessHours');
   // var domSimulation = document.getElementById('cookieSales');//DOM INJECTION
-  var domSimulation = document.getElementById('cookieSales');//DOM INJECTION
+  var domSimulation = document.getElementsByTagName('table')[0];//DOM INJECTION
   // var storeSimulation = document.createElement('tr');//or <ul>, for list
-  var storeSimulation = document.createElement('table');//or <ul>, for list
-  var tableRow = document.createElement('tr');//in list, this isn't necessary
+  var storeSimulation = document.createElement('tr');//or <ul>, for list
+  // var tableRow = document.createElement('tr');//in list, this isn't necessary
+  var listHeader = document.createElement('th');
+  listHeader.textContent = this.location;
+  storeSimulation.appendChild(listHeader);
   // storeSimulation.textContent = 'Seattle';//NOW A PROPERTY OF THE STORE OBJECT
   for (var i = 0; i < standardBusinessHours.length; i++) {
     var listItemHourlyUpdate = document.createElement('td');
-    listItemHourlyUpdate.textContent = this.hoursSalesString[i] + ' cookies';
+    listItemHourlyUpdate.textContent = this.hoursSalesString[i] + ' sales ';
     storeSimulation.appendChild(listItemHourlyUpdate);
   }
 domSimulation.appendChild(storeSimulation);
@@ -93,30 +99,49 @@ function timeString(bracketTimeArray) {//military open time//end time array --> 
 //one
   // this.listTotalHoursMethod();///TRYING TO BUILD INTO FUNCTION, INSTEAD
   // var standardBusinessHours = [];
-console.log('standardBusinessHours');
+// console.log('standardBusinessHours');
+
 var standardBusinessHours = timeString([[6, 19]]);
 console.log('standardBusinessHours');
 var domTableLocale = document.getElementById('cookieSales');//DOM INJECTION
 var domNewTable = document.createElement('table');//or <ul>, for list
 var headerRow = document.createElement('tr');//in list, this isn't necessary
 // domNewTable.textContent = 'Seattle';//NOW A PROPERTY OF THE STORE OBJECT
+var listHeader = document.createElement('th');
+listHeader.textContent = 'Store Locale';
+domNewTable.appendChild(listHeader);
 for (var i = 0; i < standardBusinessHours.length; i++) {
   var listItemHourlyUpdate = document.createElement('th');
-  listItemHourlyUpdate.textContent = standardBusinessHours[i];
+  listItemHourlyUpdate.textContent = '_' + standardBusinessHours[i] + '_';
   domNewTable.appendChild(listItemHourlyUpdate);
 }
 domTableLocale.appendChild(domNewTable);
 //end one time header build
 
+var dubai = new CreateCoffeeShop('Dubai', 11, 38, 3.7, [[6,19]]);
+var paris = new CreateCoffeeShop('Paris', 20, 38, 2.3, [[6, 19]]);
+var lima = new CreateCoffeeShop('Lima', 2, 16, 4.6, [[6, 19]]);
+var seattle = new CreateCoffeeShop('Seattle', 23, 65, 6.3, [[6, 19]]);
 var tokyo = new CreateCoffeeShop('Tokyo', 23, 33, 1.5, [[6, 19]]);
-var seattle = new CreateCoffeeShop('Seattle', 23, 65, 6.3, [[6, 19]]);//newName, minFootTraffic, maxFootTraffic, estimatedSalesPerHour, dailySchduleArray/././././minCust: 23,
+
+// var seattle = new CreateCoffeeShop('Seattle', 23, 65, 6.3, [[6, 19]]);//newName, minFootTraffic, maxFootTraffic, estimatedSalesPerHour, dailySchduleArray/././././minCust: 23,
 //   maxCust: 65,
 //   AvgSale: 6.3,
 //   scheduleDujour: [[6, 19]]
 // seattle.listTotalHoursMethod();
-tokyo.render();
+// tokyo.render();
+// seattle.render();
+console.log(tokyo);
+dubai.listTotalSalesArray();
+paris.listTotalSalesArray();
+lima.listTotalSalesArray();
+seattle.listTotalSalesArray();
+tokyo.listTotalSalesArray();
 seattle.render();
-console.log(seattle);
+tokyo.render();
+dubai.render();
+paris.render();
+lima.render();
 
 
 
