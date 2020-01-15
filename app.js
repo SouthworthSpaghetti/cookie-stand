@@ -1,5 +1,30 @@
 'use strict';
 console.log('Sup');
+var globalSalesPerHour = [];
+// globalSalesPerHour.length = standardBusinessHours.length;
+// this.listTotalHoursMethod();///TRYING TO BUILD INTO FUNCTION, INSTEAD
+// var standardBusinessHours = [];
+// console.log('standardBusinessHours');
+//one time header build
+var standardBusinessHours = timeString([[6, 19]]);
+console.log('standardBusinessHours');
+var domTableLocale = document.getElementById('cookieSales');//DOM INJECTION
+var domNewTable = document.createElement('table');//or <ul>, for list
+var headerRow = document.createElement('tr');//in list, this isn't necessary
+// domNewTable.textContent = 'Seattle';//NOW A PROPERTY OF THE STORE OBJECT
+var listHeaderAlpha = document.createElement('th');
+listHeaderAlpha.textContent = 'Store Locale';
+domNewTable.appendChild(listHeaderAlpha);
+for (var i = 0; i < standardBusinessHours.length; i++) {
+  var listItemHourlyUpdate = document.createElement('th');
+  listItemHourlyUpdate.textContent = '_' + standardBusinessHours[i] + '_';
+  domNewTable.appendChild(listItemHourlyUpdate);
+}
+var listHeaderOmega = document.createElement('th');
+listHeaderOmega.textContent = 'Store Totals';
+domNewTable.appendChild(listHeaderOmega);
+domTableLocale.appendChild(domNewTable);
+//end one time header build
 
 // var hoursString = [];
 function CreateCoffeeShop(newName, minFootTraffic, maxFootTraffic, estimatedSalesPerHour, dailySchduleArray){
@@ -31,15 +56,19 @@ function CreateCoffeeShop(newName, minFootTraffic, maxFootTraffic, estimatedSale
 
 CreateCoffeeShop.prototype.listTotalSalesArray = function() {
   var x = 0;
+  var xTotals = 0;
   // var hoursFootTraffic = [];
   // var hoursSalesString = [];//return value
   for (var i = 0; i < this.hoursString.length; i++) {
     x = randomFootTraffic(this.minCust, this.maxCust);
     // this.hoursSalesString[i] = x;
     // hoursFootTraffic[i] = x;
-    console.log(x);
     this.hoursSalesString[i] = (Math.round(x * this.avgSale));
+    xTotals += this.hoursSalesString[i];
+    globalSalesPerHour[i] = (globalSalesPerHour[i] + xTotals);
   }
+  this.hoursSalesString.push(xTotals);
+  console.log(this.hoursSalesString);
 }//END OF LIST CreateCoffeeShop PROTOTYPE
 
 function randomFootTraffic(min, max){
@@ -52,6 +81,7 @@ CreateCoffeeShop.prototype.render = function(){//take out header build
   // var standardBusinessHours = [];
   console.log('standardBusinessHours');
   var standardBusinessHours = timeString([[6, 19]]);
+  var localeDailySales = 0;
   console.log('standardBusinessHours');
   // var domSimulation = document.getElementById('cookieSales');//DOM INJECTION
   var domSimulation = document.getElementsByTagName('table')[0];//DOM INJECTION
@@ -64,9 +94,13 @@ CreateCoffeeShop.prototype.render = function(){//take out header build
   // storeSimulation.textContent = 'Seattle';//NOW A PROPERTY OF THE STORE OBJECT
   for (var i = 0; i < standardBusinessHours.length; i++) {
     var listItemHourlyUpdate = document.createElement('td');
-    listItemHourlyUpdate.textContent = this.hoursSalesString[i] + ' sales ';
+    listItemHourlyUpdate.textContent = this.hoursSalesString[i] + '';
     storeSimulation.appendChild(listItemHourlyUpdate);
+    localeDailySales += this.hoursSalesString[i];
   }
+  var localeDailyTotalData = document.createElement('td');
+  localeDailyTotalData.textContent = this.hoursSalesString[this.hoursSalesString.length - 1] + ' cookies';
+  storeSimulation.appendChild(localeDailyTotalData);
 domSimulation.appendChild(storeSimulation);
 }//end render 
 
@@ -96,27 +130,9 @@ function timeString(bracketTimeArray) {//military open time//end time array --> 
   return standardTimeArray;
 }//end military to standard time
 
-//one
-  // this.listTotalHoursMethod();///TRYING TO BUILD INTO FUNCTION, INSTEAD
-  // var standardBusinessHours = [];
-// console.log('standardBusinessHours');
 
-var standardBusinessHours = timeString([[6, 19]]);
-console.log('standardBusinessHours');
-var domTableLocale = document.getElementById('cookieSales');//DOM INJECTION
-var domNewTable = document.createElement('table');//or <ul>, for list
-var headerRow = document.createElement('tr');//in list, this isn't necessary
-// domNewTable.textContent = 'Seattle';//NOW A PROPERTY OF THE STORE OBJECT
-var listHeader = document.createElement('th');
-listHeader.textContent = 'Store Locale';
-domNewTable.appendChild(listHeader);
-for (var i = 0; i < standardBusinessHours.length; i++) {
-  var listItemHourlyUpdate = document.createElement('th');
-  listItemHourlyUpdate.textContent = '_' + standardBusinessHours[i] + '_';
-  domNewTable.appendChild(listItemHourlyUpdate);
-}
-domTableLocale.appendChild(domNewTable);
-//end one time header build
+ 
+
 
 var dubai = new CreateCoffeeShop('Dubai', 11, 38, 3.7, [[6,19]]);
 var paris = new CreateCoffeeShop('Paris', 20, 38, 2.3, [[6, 19]]);
@@ -131,7 +147,6 @@ var tokyo = new CreateCoffeeShop('Tokyo', 23, 33, 1.5, [[6, 19]]);
 // seattle.listTotalHoursMethod();
 // tokyo.render();
 // seattle.render();
-console.log(tokyo);
 dubai.listTotalSalesArray();
 paris.listTotalSalesArray();
 lima.listTotalSalesArray();
@@ -143,8 +158,27 @@ dubai.render();
 paris.render();
 lima.render();
 
+function totalsFooterRow(){//one time footer function
+ 
 
-
+}//one time footer function
+// //one time header build
+// var standardBusinessHours = timeString([[6, 19]]);
+// console.log('standardBusinessHours');
+// var domTableLocale = document.getElementsByTagName('table')[0];//DOM INJECTION
+// var domNewTable = document.createElement('table');//or <ul>, for list
+// var headerRow = document.createElement('tr');//in list, this isn't necessary
+// // domNewTable.textContent = 'Seattle';//NOW A PROPERTY OF THE STORE OBJECT
+// var listHeader = document.createElement('th');
+// listHeader.textContent = 'Store Locale';
+// domNewTable.appendChild(listHeader);
+// for (var i = 0; i < standardBusinessHours.length; i++) {
+//   var listItemHourlyUpdate = document.createElement('th');
+//   listItemHourlyUpdate.textContent = '_' + standardBusinessHours[i] + '_';
+//   domNewTable.appendChild(listItemHourlyUpdate);
+// }
+// domTableLocale.appendChild(domNewTable);
+//end one time header build
 
 
 
