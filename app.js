@@ -1,13 +1,13 @@
 'use strict';
 console.log('Sup');
+var standardBusinessHours = timeString([[6, 19]]);
 var globalSalesPerHour = [];
-// globalSalesPerHour.length = standardBusinessHours.length;
+globalSalesPerHour.length = standardBusinessHours.length;
 // this.listTotalHoursMethod();///TRYING TO BUILD INTO FUNCTION, INSTEAD
 // var standardBusinessHours = [];
 // console.log('standardBusinessHours');
+
 //one time header build
-var standardBusinessHours = timeString([[6, 19]]);
-console.log('standardBusinessHours');
 var domTableLocale = document.getElementById('cookieSales');//DOM INJECTION
 var domNewTable = document.createElement('table');//or <ul>, for list
 var headerRow = document.createElement('tr');//in list, this isn't necessary
@@ -65,7 +65,11 @@ CreateCoffeeShop.prototype.listTotalSalesArray = function() {
     // hoursFootTraffic[i] = x;
     this.hoursSalesString[i] = (Math.round(x * this.avgSale));
     xTotals += this.hoursSalesString[i];
-    globalSalesPerHour[i] = (globalSalesPerHour[i] + xTotals);
+    if (isNaN(globalSalesPerHour[i])){
+      globalSalesPerHour[i] = 0;
+    }else {
+      globalSalesPerHour[i] = (globalSalesPerHour[i] + this.hoursSalesString[i]);
+    }
   }
   this.hoursSalesString.push(xTotals);
   console.log(this.hoursSalesString);
@@ -101,7 +105,7 @@ CreateCoffeeShop.prototype.render = function(){//take out header build
   var localeDailyTotalData = document.createElement('td');
   localeDailyTotalData.textContent = this.hoursSalesString[this.hoursSalesString.length - 1] + ' cookies';
   storeSimulation.appendChild(localeDailyTotalData);
-domSimulation.appendChild(storeSimulation);
+  domSimulation.appendChild(storeSimulation);
 }//end render 
 
 
@@ -126,7 +130,6 @@ function timeString(bracketTimeArray) {//military open time//end time array --> 
     } else
       standardTimeArray[i] = standardTimeArray[i] + 'pm';//noon time
   }
-  console.log('standardTimeArray');
   return standardTimeArray;
 }//end military to standard time
 
@@ -157,9 +160,27 @@ tokyo.render();
 dubai.render();
 paris.render();
 lima.render();
+console.log(globalSalesPerHour);
+totalsFooterRow();
 
 function totalsFooterRow(){//one time footer function
- 
+  var globalDailySales = 0;
+  var domTableLocale = document.getElementsByTagName('table')[0];//DOM INJECTION
+  var footerRow = document.createElement('tr');//in list, this isn't necessary
+  // domNewTable.textContent = 'Seattle';//NOW A PROPERTY OF THE STORE OBJECT
+  var rowHeader = document.createElement('th');
+  rowHeader.textContent = 'Global Totals';
+  domNewTable.appendChild(rowHeader);
+  for (var i = 0; i < standardBusinessHours.length; i++) {
+    var listItemHourlyUpdate = document.createElement('td');
+    listItemHourlyUpdate.textContent = globalSalesPerHour[i];
+    globalDailySales += globalSalesPerHour[i];
+    domNewTable.appendChild(listItemHourlyUpdate);
+  }
+  var rowTailer = document.createElement('th');
+  rowTailer.textContent = globalDailySales;
+  domNewTable.appendChild(rowTailer);
+  domTableLocale.appendChild(domNewTable);
 
 }//one time footer function
 // //one time header build
