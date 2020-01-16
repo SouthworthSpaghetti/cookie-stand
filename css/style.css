@@ -46,8 +46,23 @@ header:hover{
    transition-timing-function: ease-out;
     transition: 0.25s;
     /* transform: translateY(0); */
-  color: rgb(220, 228, 242); 
+  border-color: rgb(220, 228, 242); 
+  color: rgb(217, 210, 108);
   border-style: dotted;
+}
+
+h2{
+  color: rgb(169, 99, 91);
+  font-family: 'Darker Grotesque', sans-serif;
+}
+
+article{
+  color: rgb(217, 210, 108);
+  font-family: 'Lato', sans-serif;
+}
+
+#generic_contact {
+color: rgb(217, 210, 108);
 }
 
 /* i {
