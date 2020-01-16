@@ -1,0 +1,68 @@
+/* background: rgb(169, 99, 91); dark
+background: rgb(220, 228, 242); off white
+background: rgb(167, 189, 217); blue
+background: rgb(217, 210, 108); yellow
+background: rgb(233, 195, 208); pink
+color: rgb(255, 255, 255) gray;
+color: rgb(115, 115, 115); white*/
+/* background-image: url(/img/chinook.jpg); */
+
+
+
+body {
+  background-color: rgb(115, 115, 115);
+  color: whitesmoke;
+}
+
+div {
+    background-image: url(/img/family.jpg);
+  /* background-image: url(/img/chinook.jpg); */
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 1440px;
+  height: 760px;
+  padding: 33px;
+  float: left;
+  
+}
+
+header {
+  transition-timing-function: ease-in;
+  transition: 0.2s;
+  /* transform: translateY(130%); */
+  color: rgb(115, 115, 115);
+  font-size: x-large;
+  /* font-family: 'Lato', sans-serif; */
+  font-family: 'Darker Grotesque', sans-serif;
+  /* font-family: 'Raleway', sans-serif; */
+  border-style: dotted;
+  border-width: 13px;
+  width: 750px;
+  height: 88px;
+  padding: 15px;
+  margin: 15px;
+}
+header:hover{
+   transition-timing-function: ease-out;
+    transition: 0.25s;
+    /* transform: translateY(0); */
+  color: rgb(220, 228, 242); 
+  border-style: dotted;
+}
+
+/* i {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+<p>Down arrow: <i class="arrow down"></i></p>
+<p>Up arrow: <i class="arrow up"></i></p> */
