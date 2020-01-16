@@ -89,8 +89,10 @@ CreateCoffeeShop.prototype.render = function(){//take out header build
     storeSimulation.appendChild(listItemHourlyUpdate);
     localeDailySales += this.salesEveryBusinessHour[i];
   }
+  console.log(localeDailySales);
   var localeDailyTotalData = document.createElement('td');
-  localeDailyTotalData.textContent = this.salesEveryBusinessHour[this.salesEveryBusinessHour.length - 1] + ' cookies';
+  localeDailyTotalData.textContent = localeDailySales + ' cookies';
+  // this.salesEveryBusinessHour[this.salesEveryBusinessHour.length - 1] + ' cookies';
   storeSimulation.appendChild(localeDailyTotalData);
   domSimulation.appendChild(storeSimulation);
 }//end render 
@@ -119,11 +121,16 @@ function timeString(bracketTimeArray) {//military open time//end time array [[6,
   return standardTimeArray;
 }//end military to standard time
 
-var dubai = new CreateCoffeeShop('Dubai', 11, 38, 3.7, [[6,19]]);
-var paris = new CreateCoffeeShop('Paris', 20, 38, 2.3, [[6, 19]]);
-var lima = new CreateCoffeeShop('Lima', 2, 16, 4.6, [[6, 19]]);
-var seattle = new CreateCoffeeShop('Seattle', 23, 65, 6.3, [[6, 19]]);
-var tokyo = new CreateCoffeeShop('Tokyo', 23, 33, 1.5, [[6, 19]]);
+var dubai = new CreateCoffeeShop('Dubai', 11, 38, 3.7)
+// , [[6,19]]);
+var paris = new CreateCoffeeShop('Paris', 20, 38, 2.3)
+// , [[6, 19]]);
+var lima = new CreateCoffeeShop('Lima', 2, 16, 4.6);
+// , [[6, 19]]);
+var seattle = new CreateCoffeeShop('Seattle', 23, 65, 6.3)
+// , [[6, 19]]);
+var tokyo = new CreateCoffeeShop('Tokyo', 23, 33, 1.5)
+// , [[6, 19]]);
 
 
 dubai.listTotalSalesArray();
