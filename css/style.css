@@ -14,7 +14,7 @@ body {
   color: whitesmoke;
 }
 
-div {
+#pageBlock {
     background-image: url(/img/family.jpg);
   /* background-image: url(/img/chinook.jpg); */
   background-repeat: no-repeat;
@@ -35,8 +35,6 @@ header {
   /* font-family: 'Lato', sans-serif; */
   font-family: 'Darker Grotesque', sans-serif;
   /* font-family: 'Raleway', sans-serif; */
-  border-style: dotted;
-  border-width: 13px;
   width: 750px;
   height: 88px;
   padding: 15px;
@@ -47,7 +45,7 @@ header:hover{
     transition: 0.25s;
     /* transform: translateY(0); */
   border-color: rgb(220, 228, 242); 
-  color: rgb(217, 210, 108);
+  color: rgb(169, 99, 91);
   border-style: dotted;
 }
 
@@ -63,6 +61,13 @@ article{
 
 #generic_contact {
 color: rgb(217, 210, 108);
+}
+
+#worldLocaleHours{
+  padding: 17px;
+  margin: 11px;
+  float: left;
+
 }
 
 /* i {
