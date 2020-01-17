@@ -7,7 +7,14 @@ color: rgb(255, 255, 255) gray;
 color: rgb(115, 115, 115); white*/
 /* background-image: url(/img/chinook.jpg); */
 
-
+fieldset {
+  height: 300px;
+  width: 300px;
+  float: left;
+  color: rgb(255, 255, 255);
+  background-color: rgb(169, 99, 91);
+  border-style: double;
+}
 
 body {
   background-color: rgb(115, 115, 115);
@@ -15,7 +22,7 @@ body {
 }
 
 #pageBlock {
-    background-image: url(/img/family.jpg);
+    /* background-image: url(/img/family.jpg); */
   /* background-image: url(/img/chinook.jpg); */
   background-repeat: no-repeat;
   background-size: cover;
@@ -50,7 +57,7 @@ header:hover{
 }
 
 h2{
-  color: rgb(169, 99, 91);
+  color: rgb(233, 195, 208);
   font-family: 'Darker Grotesque', sans-serif;
 }
 
