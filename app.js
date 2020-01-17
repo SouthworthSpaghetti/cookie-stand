@@ -28,11 +28,11 @@ domTableLocale.appendChild(domNewTable);
 //end one time header build
 
 //NEW COFFEE LOCALE CONSTRUCTOR
-function CreateCoffeeShop(newName, minFootTraffic, maxFootTraffic, estimatedSalesPerHour) {//dailySchduleArray required later: ie[[6, 11],[14, 19]]
+function CreateCoffeeShop(newName, minFootTraffic, maxFootTraffic, estimatedSalesPerCustomer) {//dailySchduleArray required later: ie[[6, 11],[14, 19]]
   this.location = newName;
   this.minCust = minFootTraffic;
   this.maxCust = maxFootTraffic;
-  this.avgSale = estimatedSalesPerHour;
+  this.avgSale = estimatedSalesPerCustomer;
   this.scheduleDujour = standardBusinessHours;
   // this.scheduleDujour = dailySchduleArray;//dailySchduleArray required later: ie[[6, 11],[14, 19]]
   this.hoursOneByOneArray = timeString(this.scheduleDujour);//store hours in a list, generated via footTrafficSimulation
@@ -136,6 +136,27 @@ var tokyo = new CreateCoffeeShop('Tokyo', 23, 33, 1.5);
 // , [[6, 19]]);
 
 
+var createCoffeeShopForm = document.getElementById('addNewLocale');
+createCoffeeShopForm.addEventListener('submit', handleSubmit);
+function handleSubmit(event){
+  event.preventDefault();
+  var newName = event.target.newName.value;
+  var minFootTraffic = event.target.minFootTraffic.value;
+  var maxFootTraffic = event.target.maxFootTraffic.value;
+  var estimatedSalesPerCustomer = event.target.estimatedSalesPerCustomer.value;
+
+  var newCoffeeShop = new CreateCoffeeShop(newName,minFootTraffic,maxFootTraffic,estimatedSalesPerCustomer);
+  newCoffeeShop.listTotalSalesArray();
+  newCoffeeShop.render();
+};
+
+
+
+
+
+
+
+
 dubai.listTotalSalesArray();
 paris.listTotalSalesArray();
 lima.listTotalSalesArray();
@@ -147,6 +168,18 @@ dubai.render();
 paris.render();
 lima.render();
 totalsFooterRow();
+
+
+
+
+
+
+
+
+
+
+
+
 
 function totalsFooterRow(){//one time footer function start
   var globalDailySales = 0;
