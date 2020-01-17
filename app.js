@@ -4,7 +4,7 @@ console.log('Sup soup soap');
 var standardBusinessHours = timeString([[6, 19]]);
 var globalSalesPerHour = [];
 globalSalesPerHour.length = standardBusinessHours.length;
-console.log(globalSalesPerHour);
+// console.log(globalSalesPerHour);
 // this.listTotalHoursMethod();///TRYING TO BUILD INTO FUNCTION, INSTEAD
 // var standardBusinessHours = [];
 // console.log('standardBusinessHours');
@@ -35,7 +35,8 @@ function CreateCoffeeShop(newName, minFootTraffic, maxFootTraffic, estimatedSale
   this.avgSale = estimatedSalesPerCustomer;
   this.scheduleDujour = standardBusinessHours;
   // this.scheduleDujour = dailySchduleArray;//dailySchduleArray required later: ie[[6, 11],[14, 19]]
-  this.hoursOneByOneArray = timeString(this.scheduleDujour);//store hours in a list, generated via footTrafficSimulation
+  this.hoursOneByOneArray = standardBusinessHours;
+  // timeString(this.scheduleDujour);//store hours in a list, generated via footTrafficSimulation
   // this.hoursFootTraffic = [];//IF WE CAN GENERATE THE ABOVE ARRAY INSIDE listTotalSalesArray (and not footTrafficSimulation), WE WON'T NEED THIS ARRAY AS A PROPERTY
   this.salesEveryBusinessHour = [];
   // this.salesEveryBusinessHour = listTotalSalesArray(this.hoursOneByOneArray, this.minCust, this.maxCust, this.avgSale, this.hoursFootTraffic);//prototype or function?
@@ -57,7 +58,7 @@ CreateCoffeeShop.prototype.listTotalSalesArray = function() {
     if (isNaN(globalSalesPerHour[i])){
       globalSalesPerHour[i] = xTotals;
     } else {
-      console.log(i);
+      // console.log(i);
       globalSalesPerHour[i] = (globalSalesPerHour[i] + xTotals);
       // xTotals = 0;
     // else {
@@ -76,7 +77,7 @@ function randomFootTraffic(min, max){
 CreateCoffeeShop.prototype.render = function(){//take out header build
   // this.listTotalHoursMethod();///TRYING TO BUILD INTO FUNCTION, INSTEAD
   // var standardBusinessHours = [];
-  var standardBusinessHours = timeString([[6, 19]]);
+  // var standardBusinessHours = timeString([[6, 19]]);
   var localeDailySales = 0;
   // var domSimulation = document.getElementById('cookieSales');//DOM INJECTION
   var domSimulation = document.getElementsByTagName('table')[0];//DOM INJECTION
@@ -106,11 +107,11 @@ function timeString(bracketTimeArray) {//military open time//end time array [[6,
 
   var x = 0;
   var standardTimeArray = [];
+  // console.log(bracketTimeArray.length);
   for (var j = 0; j < bracketTimeArray.length; j++) {//going to loop thru schedules' start and end instances (ie. will loop thru twice for schedule: 06:00-10:00 & 13:00-19:00)
     standardTimeArray[x] = bracketTimeArray[j][0];
     for (var jj = bracketTimeArray[j][0]; jj < bracketTimeArray[j][1] + 1; jj++) {
-
-      standardTimeArray[x++] = jj;
+    standardTimeArray[x++] = jj;
     }
   
   for (var i = 0; i < standardTimeArray.length; i++) {//military to standard time am/pm
@@ -137,7 +138,9 @@ var tokyo = new CreateCoffeeShop('Tokyo', 23, 33, 1.5);
 
 
 var createCoffeeShopForm = document.getElementById('addNewLocale');
-createCoffeeShopForm.addEventListener('submit', handleSubmit);
+var button = document.createElement('button');
+button.textContent = 'Speak';
+button.addEventListener('submit', handleSubmit);
 function handleSubmit(event){
   event.preventDefault();
   var newName = event.target.newName.value;
@@ -148,7 +151,7 @@ function handleSubmit(event){
   var newCoffeeShop = new CreateCoffeeShop(newName,minFootTraffic,maxFootTraffic,estimatedSalesPerCustomer);
   newCoffeeShop.listTotalSalesArray();
   newCoffeeShop.render();
-};
+}
 
 
 
@@ -188,17 +191,17 @@ function totalsFooterRow(){//one time footer function start
   // domNewTable.textContent = 'Seattle';//NOW A PROPERTY OF THE STORE OBJECT
   var rowHeader = document.createElement('th');
   rowHeader.textContent = 'Global Totals';
-  domNewTable.appendChild(rowHeader);
+  footerRow.appendChild(rowHeader);
   for (var i = 0; i < standardBusinessHours.length; i++) {
     var listItemHourlyUpdate = document.createElement('td');
     listItemHourlyUpdate.textContent = globalSalesPerHour[i];
     globalDailySales += globalSalesPerHour[i];
-    domNewTable.appendChild(listItemHourlyUpdate);
+    footerRow.appendChild(listItemHourlyUpdate);
   }
-  console.log(globalDailySales);
+  // console.log(globalDailySales);
   var rowTailer = document.createElement('th');
   rowTailer.textContent = globalDailySales;
-  domNewTable.appendChild(rowTailer);
-  domTableLocale.appendChild(domNewTable);
+  footerRow.appendChild(rowTailer);
+  domTableLocale.appendChild(footerRow);
 
 }//one time footer function end
