@@ -138,9 +138,7 @@ var tokyo = new CreateCoffeeShop('Tokyo', 23, 33, 1.5);
 
 
 var createCoffeeShopForm = document.getElementById('addNewLocale');
-var button = document.createElement('button');
-button.textContent = 'Speak';
-button.addEventListener('submit', handleSubmit);
+createCoffeeShopForm.addEventListener('submit', handleSubmit);
 function handleSubmit(event){
   event.preventDefault();
   var newName = event.target.newName.value;
@@ -148,9 +146,15 @@ function handleSubmit(event){
   var maxFootTraffic = event.target.maxFootTraffic.value;
   var estimatedSalesPerCustomer = event.target.estimatedSalesPerCustomer.value;
 
+  event.target.newName.value = null;
+  event.target.minFootTraffic.value = null;
+  event.target.maxFootTraffic.value = null;
+  event.target.estimatedSalesPerCustomer.value = null;
+
   var newCoffeeShop = new CreateCoffeeShop(newName,minFootTraffic,maxFootTraffic,estimatedSalesPerCustomer);
   newCoffeeShop.listTotalSalesArray();
   newCoffeeShop.render();
+  totalsFooterRow();
 }
 
 
