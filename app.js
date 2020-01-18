@@ -53,14 +53,16 @@ CreateCoffeeShop.prototype.listTotalSalesArray = function() {
     // this.salesEveryBusinessHour[i] = x;
     // hoursFootTraffic[i] = x;
     this.salesEveryBusinessHour[i] = (Math.round(x * this.avgSale));
-    var xTotals = this.salesEveryBusinessHour[i];
+    // var xTotals = this.salesEveryBusinessHour[i];
     
     for(var ii = 0; ii < standardBusinessHours.length; ii++){
-      if (isNaN(globalSalesPerHour[ii])) {
+        if (isNaN(globalSalesPerHour[ii])) {
         globalSalesPerHour[ii] = 0;
-      } else if (this.hoursOneByOneArray[i] === standardBusinessHours[ii]) {
-        globalSalesPerHour[ii] = globalSalesPerHour[ii] += xTotals;
+        console.log(i + ' clear ii ' + ii);
+      } if (this.hoursOneByOneArray[i] === standardBusinessHours[ii]) {
+        globalSalesPerHour[ii] += this.salesEveryBusinessHour[i];
         ii = standardBusinessHours.length;
+        console.log(i + ' as i/././ii as' + ii);
       }
     }
       
