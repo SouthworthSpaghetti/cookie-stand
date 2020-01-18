@@ -194,7 +194,7 @@ function handleSubmit(event){
   event.target.maxFootTraffic.value = null;
   event.target.estimatedSalesPerCustomer.value = null;
 
-  var newCoffeeShop = new CreateCoffeeShop(newName,minFootTraffic,maxFootTraffic,estimatedSalesPerCustomer, [[6,19]]);
+  var newCoffeeShop = new CreateCoffeeShop(newName,minFootTraffic,maxFootTraffic,estimatedSalesPerCustomer, [[6,11],[15,19]]);
   newCoffeeShop.listTotalSalesArray();
   newCoffeeShop.render();
   totalsFooterRow();

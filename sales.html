@@ -12,13 +12,13 @@
     <legend>
       <h2>Create New Global Locale</h2>
     </legend>
-    <label>Locale Name</label><input name="newName" type="text">
-    <label>minCust Per Hour</label><input name="minFootTraffic" type="text">
-    <label>maxCust Per Hour</label><input name="maxFootTraffic" type="text">
-    <label>Estimated Sales Per Customer</label><input name="estimatedSalesPerCustomer" type="text">
-    <label>Dailiy schedule iterations</label><input name="scheduleDujour" type="text">
+    <label>Locale Name</label><input name="newName" type="text" maxlength="18">
+    <label>minCust Per Hour</label><input name="minFootTraffic" type="number" min=".3" step=".3">
+    <label>maxCust Per Hour</label><input name="maxFootTraffic" type="number" max="60" step=".3">
+    <label>Estimated Sales Per Customer</label><input name="estimatedSalesPerCustomer" type="number" input name="minFootTraffic" type="text" max="19" step=".3">
+    <label>Daily schedule iterations</label><input name="scheduleDujour" type="number" step=".3">
       </fieldset>
-    <button type="submit">Create Location</button>
+    <button type="submit">Create New Sales Simulation</button>
     <!-- minCust Per Hour<input type:"text"><br> -->
 
 </form>
