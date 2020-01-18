@@ -28,15 +28,15 @@ domTableLocale.appendChild(domNewTable);
 //end one time header build
 
 //NEW COFFEE LOCALE CONSTRUCTOR
-function CreateCoffeeShop(newName, minFootTraffic, maxFootTraffic, estimatedSalesPerCustomer) {//dailySchduleArray required later: ie[[6, 11],[14, 19]]
+function CreateCoffeeShop(newName, minFootTraffic, maxFootTraffic, estimatedSalesPerCustomer, dailySchduleArray){//required later: ie[[6, 11],[14, 19]]
   this.location = newName;
   this.minCust = minFootTraffic;
   this.maxCust = maxFootTraffic;
   this.avgSale = estimatedSalesPerCustomer;
-  this.scheduleDujour = standardBusinessHours;
-  // this.scheduleDujour = dailySchduleArray;//dailySchduleArray required later: ie[[6, 11],[14, 19]]
-  this.hoursOneByOneArray = standardBusinessHours;
-  // timeString(this.scheduleDujour);//store hours in a list, generated via footTrafficSimulation
+  // this.scheduleDujour = standardBusinessHours;
+  this.scheduleDujour = dailySchduleArray;//dailySchduleArray required later: ie[[6, 11],[14, 19]]
+  // this.hoursOneByOneArray = standardBusinessHours;
+  this.hoursOneByOneArray = timeString(this.scheduleDujour);//store hours in a list, generated via footTrafficSimulation
   // this.hoursFootTraffic = [];//IF WE CAN GENERATE THE ABOVE ARRAY INSIDE listTotalSalesArray (and not footTrafficSimulation), WE WON'T NEED THIS ARRAY AS A PROPERTY
   this.salesEveryBusinessHour = [];
   // this.salesEveryBusinessHour = listTotalSalesArray(this.hoursOneByOneArray, this.minCust, this.maxCust, this.avgSale, this.hoursFootTraffic);//prototype or function?
@@ -54,17 +54,31 @@ CreateCoffeeShop.prototype.listTotalSalesArray = function() {
     // hoursFootTraffic[i] = x;
     this.salesEveryBusinessHour[i] = (Math.round(x * this.avgSale));
     xTotals = this.salesEveryBusinessHour[i];
-    // xTotals += this.salesEveryBusinessHour[i];
-    if (isNaN(globalSalesPerHour[i])){
-      globalSalesPerHour[i] = xTotals;
-    } else {
-      // console.log(i);
-      globalSalesPerHour[i] = (globalSalesPerHour[i] + xTotals);
-      // xTotals = 0;
-    // else {
-    //   globalSalesPerHour[i] = (globalSalesPerHour[i] + this.salesEveryBusinessHour[i]);
 
+    for(var ii = 0; ii < standardBusinessHours.length; ii++){
+      if (this.hoursOneByOneArray[i] === standardBusinessHours[ii]) {
+        globalSalesPerHour[ii] = xTotals
+        ii = standardBusinessHours.length;
+      }else if(isNaN(globalSalesPerHour[i])) {
+        globalSalesPerHour[i] = 0;
+      } 
     }
+      
+      
+      
+      
+    //   // )
+    // // xTotals += this.salesEveryBusinessHour[i];
+    // if (isNaN(globalSalesPerHour[i])){
+    //   globalSalesPerHour[i] = xTotals;
+    // } else {
+    //   // console.log(i);
+    //   globalSalesPerHour[i] = (globalSalesPerHour[i] + xTotals);
+    //   // xTotals = 0;
+    // // else {
+    // //   globalSalesPerHour[i] = (globalSalesPerHour[i] + this.salesEveryBusinessHour[i]);
+
+    // }
   }
   // this.salesEveryBusinessHour.push(xTotals);
 }//END OF LIST CreateCoffeeShop PROTOTYPE
@@ -90,16 +104,44 @@ CreateCoffeeShop.prototype.render = function(){//take out header build
   // storeSimulation.textContent = 'Seattle';//NOW A PROPERTY OF THE STORE OBJECT
   for (var i = 0; i < standardBusinessHours.length; i++) {
     var listItemHourlyUpdate = document.createElement('td');
-    listItemHourlyUpdate.textContent = this.salesEveryBusinessHour[i] + '';
-    storeSimulation.appendChild(listItemHourlyUpdate);
-    localeDailySales += this.salesEveryBusinessHour[i];
+    for (var ii = 0; ii < this.hoursOneByOneArray.length; ii++) {
+      if(this.hoursOneByOneArray[ii] === standardBusinessHours[i]){
+        listItemHourlyUpdate.textContent = this.salesEveryBusinessHour[ii];
+        storeSimulation.appendChild(listItemHourlyUpdate);
+        localeDailySales += this.salesEveryBusinessHour[ii];
+        ii = this.hoursOneByOneArray.length;
+      } else {
+        listItemHourlyUpdate.textContent = '';
+        storeSimulation.appendChild(listItemHourlyUpdate);
+      } 
+    }
   }
+ 
+  // for (var i = 0; i < this.hoursOneByOneArray.length; i++) {
+  //   var listItemHourlyUpdate = document.createElement('td');
+  //   for (var ii = 0; ii < standardBusinessHours.length; ii++) {
+  //     if (this.hoursOneByOneArray[i] === standardBusinessHours[ii]) {
+  //       listItemHourlyUpdate.textContent = this.salesEveryBusinessHour[i];
+  //       storeSimulation.appendChild(listItemHourlyUpdate);
+  //       localeDailySales += this.salesEveryBusinessHour[i];
+  //       ii = standardBusinessHours.length;
+  //     } else {
+  //       listItemHourlyUpdate.textContent = '';
+  //       storeSimulation.appendChild(listItemHourlyUpdate);
+  //     }
+  //   } storeSimulation.appendChild(listItemHourlyUpdate);
+  // }
+
+      
+      
+    
+
   var localeDailyTotalData = document.createElement('td');
   localeDailyTotalData.textContent = localeDailySales + ' cookies';
   // this.salesEveryBusinessHour[this.salesEveryBusinessHour.length - 1] + ' cookies';
   storeSimulation.appendChild(localeDailyTotalData);
   domSimulation.appendChild(storeSimulation);
-}//end render 
+};//end render
 
 
 
@@ -108,38 +150,37 @@ function timeString(bracketTimeArray) {//military open time//end time array [[6,
   var x = 0;
   var standardTimeArray = [];
   // console.log(bracketTimeArray.length);
-  for (var j = 0; j < bracketTimeArray.length; j++) {//going to loop thru schedules' start and end instances (ie. will loop thru twice for schedule: 06:00-10:00 & 13:00-19:00)
-    standardTimeArray[x] = bracketTimeArray[j][0];
-    for (var jj = bracketTimeArray[j][0]; jj < bracketTimeArray[j][1] + 1; jj++) {
-    standardTimeArray[x++] = jj;
+  for (var j = 0; j < bracketTimeArray.length; j++) {//going to loop thru number of schedules' start and end instances (ie. will loop thru twice for schedule: 06:00-10:00 & 13:00-19:00)
+    // standardTimeArray[x] = bracketTimeArray[j][0];//Jan17<---is this line necessary?
+    for (var jj = bracketTimeArray[j][0]; jj < bracketTimeArray[j][1] + 1; jj++) {//going to loop thru schedules' start and end instances, to 'fill in' all open hours
+      standardTimeArray[x++] = jj;
+    }
+  }
+    for (var i = 0; i < standardTimeArray.length; i++) {//military to standard time am/pm
+      if (standardTimeArray[i] > 12) {
+        standardTimeArray[i] = (standardTimeArray[i] - 12) + 'pm';
+        console.log(standardTimeArray);
+      } else if (standardTimeArray[i] < 12) {
+        standardTimeArray[i] = standardTimeArray[i] + 'am';
+        console.log(standardTimeArray);
+      } else
+        standardTimeArray[i] = standardTimeArray[i] + 'pm';//noon time
+      console.log(standardTimeArray);
     }
   
-  for (var i = 0; i < standardTimeArray.length; i++) {//military to standard time am/pm
-    if (standardTimeArray[i] > 12) {
-      standardTimeArray[i] = (standardTimeArray[i] - 12) + 'pm';
-    } else if (standardTimeArray[i] < 12) {
-      standardTimeArray[i] = standardTimeArray[i] + 'am';
-    } else
-      standardTimeArray[i] = standardTimeArray[i] + 'pm';//noon time
-  }}
   return standardTimeArray;
 }//end military to standard time
 
-var dubai = new CreateCoffeeShop('Dubai', 11, 38, 3.7);
-// , [[6,19]]);
-var paris = new CreateCoffeeShop('Paris', 20, 38, 2.3);
-// , [[6, 19]]);
-var lima = new CreateCoffeeShop('Lima', 2, 16, 4.6);
-// , [[6, 19]]);
-var seattle = new CreateCoffeeShop('Seattle', 23, 65, 6.3);
-// , [[6, 19]]);
-var tokyo = new CreateCoffeeShop('Tokyo', 23, 33, 1.5);
-// , [[6, 19]]);
+var dubai = new CreateCoffeeShop('Dubai', 11, 38, 3.7, [[6,11],[14,19]]);
+// var paris = new CreateCoffeeShop('Paris', 20, 38, 2.3, [[6, 19]]);
+// var lima = new CreateCoffeeShop('Lima', 2, 16, 4.6, [[6, 19]]);
+// var seattle = new CreateCoffeeShop('Seattle', 23, 65, 6.3, [[6, 19]]);
+// var tokyo = new CreateCoffeeShop('Tokyo', 23, 33, 1.5, [[6, 19]]);
 
 
 var createCoffeeShopForm = document.getElementById('addNewLocale');
 createCoffeeShopForm.addEventListener('submit', handleSubmit);
-function handleSubmit(event){
+function handleSubmit(event){ 
   event.preventDefault();
   var newName = event.target.newName.value;
   var minFootTraffic = event.target.minFootTraffic.value;
@@ -165,15 +206,15 @@ function handleSubmit(event){
 
 
 dubai.listTotalSalesArray();
-paris.listTotalSalesArray();
-lima.listTotalSalesArray();
-seattle.listTotalSalesArray();
-tokyo.listTotalSalesArray();
-seattle.render();
-tokyo.render();
+// paris.listTotalSalesArray();
+// lima.listTotalSalesArray();
+// seattle.listTotalSalesArray();
+// tokyo.listTotalSalesArray();
+// seattle.render();
+// tokyo.render();
 dubai.render();
-paris.render();
-lima.render();
+// paris.render();
+// lima.render();
 totalsFooterRow();
 
 
