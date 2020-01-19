@@ -4,21 +4,64 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
   <title>Document</title>
 </head>
-
-<form id="addNewLocale">
+<div>
+<form id="addUpdates">
   <fieldset>
     <legend>
-      <h2>Create New Global Locale</h2>
-    </legend>
-    <label>Locale Name</label><input name="newName" type="text">
-    <label>minCust Per Hour</label><input name="minFootTraffic" type="text">
-    <label>maxCust Per Hour</label><input name="maxFootTraffic" type="text">
-    <label>Estimated Sales Per Customer</label><input name="estimatedSalesPerCustomer" type="text">
-      </fieldset>
-    <button type="submit">Create Location</button>
+      <h3>Global Selection</h3>
+      <!-- <label for="localeSelector">Select Location</label> -->
+      <select name="selectLocation" id="localeSelector">
+        <option value="selectLocation">Select Location</option>
+        <option value="Seattle">Seattle</option>
+        <option value="Tokyo">Tokyo</option>
+        <option value="Paris">Paris</option>
+        <option value="Dubai">Dubai</option>
+        <option value="Lima">Lima</option>
+        <option value="Spawn New Location">Spawn New Location</option>
+      </select>
+      <!-- <label>Select Location</label><input name="selectionDropDown" type="text" maxlength="18" minlength="1"> -->
+    </legend> 
+
+    <label class="newLocation">Locale Name</label class="newLocation"><input name="newName" type="text" maxlength="18" minlength="1">
+    <label>HourlyminCust</label><input name="minFootTraffic" type="text" min=".3" max="60" maxlength="3">
+    <label>HourlymaxCust</label><input name="maxFootTraffic" type="text" min=".3" max="101" maxlength="3">
+    <label>Estimated Sales Per Customer</label><input name="estimatedSalesPerCustomer" type="number" input name="minFootTraffic" min="1" max="19" step=".3">
+    <!-- <label>Daily schedule iterations</label><input name="scheduleDujour" type="number" step=".3"> -->
+    <figure>
+    <h4>SCHEDULE  SLIDER</h4><br>
+      <p>6789101112</p><br>
+      <p>1pm234567</p>
+    </figure>
+    <article>
+      <ul id=listAm>
+        <!-- <li>6am</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+        <li>10</li>
+        <li>11</li>
+        <li>12</li> -->
+      </ul>
+      <ul id=listPm>
+        <!-- <li>1pm</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li> -->
+      </ul>
+      
+    </article>
+    <section>
+      <button type="submit" class="newLocation" id="newLocation">Create New Sales Simulation</button>
+      <button type="submit" class="newUpdate">Update Location Simulation</button>
+    </section>
     <!-- minCust Per Hour<input type:"text"><br> -->
+  </fieldset>
 
 </form>
 
@@ -26,10 +69,10 @@
 
 
 
+<figure id='cookieSales'></figure>
+</div>
 
-
-
-<body id='cookieSales'>
+<body>
   
 <script src='app.js'></script>
 </body>

@@ -28,15 +28,15 @@ domTableLocale.appendChild(domNewTable);
 //end one time header build
 
 //NEW COFFEE LOCALE CONSTRUCTOR
-function CreateCoffeeShop(newName, minFootTraffic, maxFootTraffic, estimatedSalesPerCustomer) {//dailySchduleArray required later: ie[[6, 11],[14, 19]]
+function CreateCoffeeShop(newName, minFootTraffic, maxFootTraffic, estimatedSalesPerCustomer, dailySchduleArray){//required later: ie[[6, 11],[14, 19]]
   this.location = newName;
   this.minCust = minFootTraffic;
   this.maxCust = maxFootTraffic;
   this.avgSale = estimatedSalesPerCustomer;
-  this.scheduleDujour = standardBusinessHours;
-  // this.scheduleDujour = dailySchduleArray;//dailySchduleArray required later: ie[[6, 11],[14, 19]]
-  this.hoursOneByOneArray = standardBusinessHours;
-  // timeString(this.scheduleDujour);//store hours in a list, generated via footTrafficSimulation
+  // this.scheduleDujour = standardBusinessHours;
+  this.scheduleDujour = dailySchduleArray;//dailySchduleArray required later: ie[[6, 11],[14, 19]]
+  // this.hoursOneByOneArray = standardBusinessHours;
+  this.hoursOneByOneArray = timeString(this.scheduleDujour);//store hours in a list, generated via footTrafficSimulation
   // this.hoursFootTraffic = [];//IF WE CAN GENERATE THE ABOVE ARRAY INSIDE listTotalSalesArray (and not footTrafficSimulation), WE WON'T NEED THIS ARRAY AS A PROPERTY
   this.salesEveryBusinessHour = [];
   // this.salesEveryBusinessHour = listTotalSalesArray(this.hoursOneByOneArray, this.minCust, this.maxCust, this.avgSale, this.hoursFootTraffic);//prototype or function?
@@ -44,27 +44,43 @@ function CreateCoffeeShop(newName, minFootTraffic, maxFootTraffic, estimatedSale
 }//end of CreateCoffeeShop constructor
 
 CreateCoffeeShop.prototype.listTotalSalesArray = function() {
-  var x = 0;
-  var xTotals = 0;
+  // var x = 0;
+  // var xTotals = 0;
   // var hoursFootTraffic = [];
   // var salesEveryBusinessHour = [];//return value
   for (var i = 0; i < this.hoursOneByOneArray.length; i++) {
-    x = randomFootTraffic(this.minCust, this.maxCust);
+    var x = randomFootTraffic(this.minCust, this.maxCust);
     // this.salesEveryBusinessHour[i] = x;
     // hoursFootTraffic[i] = x;
     this.salesEveryBusinessHour[i] = (Math.round(x * this.avgSale));
-    xTotals = this.salesEveryBusinessHour[i];
-    // xTotals += this.salesEveryBusinessHour[i];
-    if (isNaN(globalSalesPerHour[i])){
-      globalSalesPerHour[i] = xTotals;
-    } else {
-      // console.log(i);
-      globalSalesPerHour[i] = (globalSalesPerHour[i] + xTotals);
-      // xTotals = 0;
-    // else {
-    //   globalSalesPerHour[i] = (globalSalesPerHour[i] + this.salesEveryBusinessHour[i]);
-
+    // var xTotals = this.salesEveryBusinessHour[i];
+    
+    for(var ii = 0; ii < standardBusinessHours.length; ii++){
+        if (isNaN(globalSalesPerHour[ii])) {
+        globalSalesPerHour[ii] = 0;
+        // console.log(i + ' clear ii ' + ii);
+      } if (this.hoursOneByOneArray[i] === standardBusinessHours[ii]) {
+        globalSalesPerHour[ii] += this.salesEveryBusinessHour[i];
+        ii = standardBusinessHours.length;
+        // console.log(i + ' as i/././ii as' + ii);
+      }
     }
+      
+      
+      
+      
+    //   // )
+    // // xTotals += this.salesEveryBusinessHour[i];
+    // if (isNaN(globalSalesPerHour[i])){
+    //   globalSalesPerHour[i] = xTotals;
+    // } else {
+    //   // console.log(i);
+    //   globalSalesPerHour[i] = (globalSalesPerHour[i] + xTotals);
+    //   // xTotals = 0;
+    // // else {
+    // //   globalSalesPerHour[i] = (globalSalesPerHour[i] + this.salesEveryBusinessHour[i]);
+
+    // }
   }
   // this.salesEveryBusinessHour.push(xTotals);
 }//END OF LIST CreateCoffeeShop PROTOTYPE
@@ -79,6 +95,7 @@ CreateCoffeeShop.prototype.render = function(){//take out header build
   // var standardBusinessHours = [];
   // var standardBusinessHours = timeString([[6, 19]]);
   var localeDailySales = 0;
+  // console.log(this.location);
   // var domSimulation = document.getElementById('cookieSales');//DOM INJECTION
   var domSimulation = document.getElementsByTagName('table')[0];//DOM INJECTION
   // var storeSimulation = document.createElement('tr');//or <ul>, for list
@@ -90,16 +107,44 @@ CreateCoffeeShop.prototype.render = function(){//take out header build
   // storeSimulation.textContent = 'Seattle';//NOW A PROPERTY OF THE STORE OBJECT
   for (var i = 0; i < standardBusinessHours.length; i++) {
     var listItemHourlyUpdate = document.createElement('td');
-    listItemHourlyUpdate.textContent = this.salesEveryBusinessHour[i] + '';
-    storeSimulation.appendChild(listItemHourlyUpdate);
-    localeDailySales += this.salesEveryBusinessHour[i];
+    for (var ii = 0; ii < this.hoursOneByOneArray.length; ii++) {
+      if(this.hoursOneByOneArray[ii] === standardBusinessHours[i]){
+        listItemHourlyUpdate.textContent = this.salesEveryBusinessHour[ii];
+        storeSimulation.appendChild(listItemHourlyUpdate);
+        localeDailySales += this.salesEveryBusinessHour[ii];
+        ii = this.hoursOneByOneArray.length;
+      } else {
+        listItemHourlyUpdate.textContent = '';
+        storeSimulation.appendChild(listItemHourlyUpdate);
+      } 
+    }
   }
+ 
+  // for (var i = 0; i < this.hoursOneByOneArray.length; i++) {
+  //   var listItemHourlyUpdate = document.createElement('td');
+  //   for (var ii = 0; ii < standardBusinessHours.length; ii++) {
+  //     if (this.hoursOneByOneArray[i] === standardBusinessHours[ii]) {
+  //       listItemHourlyUpdate.textContent = this.salesEveryBusinessHour[i];
+  //       storeSimulation.appendChild(listItemHourlyUpdate);
+  //       localeDailySales += this.salesEveryBusinessHour[i];
+  //       ii = standardBusinessHours.length;
+  //     } else {
+  //       listItemHourlyUpdate.textContent = '';
+  //       storeSimulation.appendChild(listItemHourlyUpdate);
+  //     }
+  //   } storeSimulation.appendChild(listItemHourlyUpdate);
+  // }
+
+      
+      
+    
+
   var localeDailyTotalData = document.createElement('td');
   localeDailyTotalData.textContent = localeDailySales + ' cookies';
   // this.salesEveryBusinessHour[this.salesEveryBusinessHour.length - 1] + ' cookies';
   storeSimulation.appendChild(localeDailyTotalData);
   domSimulation.appendChild(storeSimulation);
-}//end render 
+};//end render
 
 
 
@@ -108,50 +153,187 @@ function timeString(bracketTimeArray) {//military open time//end time array [[6,
   var x = 0;
   var standardTimeArray = [];
   // console.log(bracketTimeArray.length);
-  for (var j = 0; j < bracketTimeArray.length; j++) {//going to loop thru schedules' start and end instances (ie. will loop thru twice for schedule: 06:00-10:00 & 13:00-19:00)
-    standardTimeArray[x] = bracketTimeArray[j][0];
-    for (var jj = bracketTimeArray[j][0]; jj < bracketTimeArray[j][1] + 1; jj++) {
-    standardTimeArray[x++] = jj;
+  for (var j = 0; j < bracketTimeArray.length; j++) {//going to loop thru number of schedules' start and end instances (ie. will loop thru twice for schedule: 06:00-10:00 & 13:00-19:00)
+    // standardTimeArray[x] = bracketTimeArray[j][0];//Jan17<---is this line necessary?
+    for (var jj = bracketTimeArray[j][0]; jj < bracketTimeArray[j][1] + 1; jj++) {//going to loop thru schedules' start and end instances, to 'fill in' all open hours
+      standardTimeArray[x++] = jj;
+    }
+  }
+    for (var i = 0; i < standardTimeArray.length; i++) {//military to standard time am/pm
+      if (standardTimeArray[i] > 12) {
+        standardTimeArray[i] = (standardTimeArray[i] - 12) + 'pm';
+        // console.log(standardTimeArray);
+      } else if (standardTimeArray[i] < 12) {
+        standardTimeArray[i] = standardTimeArray[i] + 'am';
+        // console.log(standardTimeArray);
+      } else
+        standardTimeArray[i] = standardTimeArray[i] + 'pm';//noon time
+      // console.log(standardTimeArray);
     }
   
-  for (var i = 0; i < standardTimeArray.length; i++) {//military to standard time am/pm
-    if (standardTimeArray[i] > 12) {
-      standardTimeArray[i] = (standardTimeArray[i] - 12) + 'pm';
-    } else if (standardTimeArray[i] < 12) {
-      standardTimeArray[i] = standardTimeArray[i] + 'am';
-    } else
-      standardTimeArray[i] = standardTimeArray[i] + 'pm';//noon time
-  }}
   return standardTimeArray;
 }//end military to standard time
 
-var dubai = new CreateCoffeeShop('Dubai', 11, 38, 3.7);
-// , [[6,19]]);
-var paris = new CreateCoffeeShop('Paris', 20, 38, 2.3);
-// , [[6, 19]]);
-var lima = new CreateCoffeeShop('Lima', 2, 16, 4.6);
-// , [[6, 19]]);
-var seattle = new CreateCoffeeShop('Seattle', 23, 65, 6.3);
-// , [[6, 19]]);
-var tokyo = new CreateCoffeeShop('Tokyo', 23, 33, 1.5);
-// , [[6, 19]]);
+
+function listRender(store){
+  // if (result == seattle.location){
+  //   console.log('good');
+  // } else {
+  //   console.log('x');
+  var x = 0;
+  var standardTimeArray = [];
+  var domSimulation = document.getElementsByTagName('article')[0];
+  clearFormList();
+  // var domClear = document.getElementById('listAm');
+  // domClear.remove();
+  // var domClear = document.getElementById('listPm');
+  // domClear.remove();
+  // var storeSimulationAm = document.createElement('ul');
+  // storeSimulationAm.setAttribute('id','listAm');
+  // domSimulation.appendChild(storeSimulationAm);
+  var domAM = document.getElementById('listAm');
+  // var storeSimulationPm = document.createElement('ul');
+  // storeSimulationPm.setAttribute('id', 'listPm');
+  // domSimulation.appendChild(storeSimulationPm);
+  var domPM = document.getElementById('listPm');
+  for (var j = 0; j < store.scheduleDujour.length; j++) {//going to loop thru number of schedules' start and end instances (ie. will loop thru twice for schedule: 06:00-10:00 & 13:00-19:00)
+  // standardTimeArray[x] = bracketTimeArray[j][0];//Jan17<---is this line necessary?
+  for (var jj = store.scheduleDujour[j][0]; jj < store.scheduleDujour[j][1] + 1; jj++) {//going to loop thru schedules' start and end instances, to 'fill in' all open hours
+  standardTimeArray[x++] = jj;
+}
+}
+for (var i = 0; i < store.hoursOneByOneArray.length; i++) {
+  var listItemHourlyUpdate = document.createElement('li');
+  // if(store.hoursOneByOneArray[i] === '12pm'){
+    //   // needs to be at bottom of list
+    // }
+    // console.log(standardTimeArray)
+    if (standardTimeArray[i] > 12) {
+      // console.log('x');
+      listItemHourlyUpdate.textContent = store.hoursOneByOneArray[i] + ': ' + store.salesEveryBusinessHour[i] + ' cookies';
+      domPM.appendChild(listItemHourlyUpdate);
+    } else if (standardTimeArray[i] < 12) {
+      listItemHourlyUpdate.textContent = store.hoursOneByOneArray[i] + ': ' + store.salesEveryBusinessHour[i] + ' cookies';
+      domAM.appendChild(listItemHourlyUpdate);
+    } else {
+      listItemHourlyUpdate.textContent = store.hoursOneByOneArray[i] + ': ' + store.salesEveryBusinessHour[i] + ' cookies';
+      domAM.appendChild(listItemHourlyUpdate);
+    }
+    // listItemHourlyUpdate.textContent = store.hoursOneByOneArray[i] + ': ' + store.salesEveryBusinessHour[i];
+    // storeSimulationAm.appendChild(listItemHourlyUpdate);
+    // domSimulation.appendChild(storeSimulationAm);
+  }
+  // var finalLoad = document.createElement('li');
+  // finalLoad.textContent = 'Total: ' + globalTotals;
+  // storeSimulation.appendChild(finalLoad);
+  // domSimulation.appendChild(storeSimulation);
+}
 
 
-var createCoffeeShopForm = document.getElementById('addNewLocale');
-createCoffeeShopForm.addEventListener('submit', handleSubmit);
-function handleSubmit(event){
+// var domSimulation = document.getElementById('cookieSales');
+// var storeSimulation = document.createElement('ul');
+// storeSimulation.textContent = this.locale;
+// for (var i = 0; i < this.hoursString.length; i++) {
+  //   var listItemHourlyUpdate = document.createElement('li');
+  //   listItemHourlyUpdate.textContent = this.hoursString[i] + ': ' + this.hoursSalesString[i];
+  //   storeSimulation.appendChild(listItemHourlyUpdate);
+  // }
+  // var finalLoad = document.createElement('li');
+  // finalLoad.textContent = 'Total: ' + globalTotals;
+  // storeSimulation.appendChild(finalLoad);
+  // domSimulation.appendChild(storeSimulation);
+  
+  
+  
+  
+function clearFormForUpdate(){
+  var x = document.getElementsByClassName('newLocation').length;
+document.getElementsByClassName('newUpdate')[0].style.display = 'block';//true
+for (var i = 0; i < x; i++) {
+  document.getElementsByClassName('newLocation')[i].style.display = 'none';//false
+}
+}
+
+function clearFormForLocationBuild(){
+  var x = document.getElementsByClassName('newLocation').length;
+  document.getElementsByClassName('newUpdate')[0].style.display = 'none';//false
+  for (var i = 0; i < x; i++) {
+    document.getElementsByClassName('newLocation')[i].style.display = 'block';//true
+  }
+}
+
+function clearFormList(){
+  var domSimulation = document.getElementsByTagName('article')[0];
+  var domClear = document.getElementById('listAm');
+  domClear.remove();
+  var domClear = document.getElementById('listPm');
+  domClear.remove();
+  var storeSimulationAm = document.createElement('ul');
+  storeSimulationAm.setAttribute('id', 'listAm');
+  domSimulation.appendChild(storeSimulationAm);
+  var domAM = document.getElementById('listAm');
+  var storeSimulationPm = document.createElement('ul');
+  storeSimulationPm.setAttribute('id', 'listPm');
+  domSimulation.appendChild(storeSimulationPm);
+  var domPM = document.getElementById('listPm');
+}
+  
+var formSelector = document.querySelector('#localeSelector');
+formSelector.addEventListener('change',handleSelector);
+
+function handleSelector (event){
   event.preventDefault();
+  var x = document.getElementsByClassName('newLocation').length;
+  for(var i = 0; i < x; i++){
+    document.getElementsByClassName('newLocation')[i].style.display = 'none';
+  }
+  document.getElementsByClassName('newUpdate')[0].style.display = 'none';
+  var result = event.target.value;
+  if(result === 'Spawn New Location'){
+    clearFormForLocationBuild();
+    clearFormList();
+    var createCoffeeShopForm = document.getElementsByClassName('newLocation')[1];
+    createCoffeeShopForm.addEventListener('submit', handleSubmit);
+  } else {
+    clearFormForUpdate();
+    switch(result){
+    case (seattle.location):
+      listRender(seattle);
+      break;
+    case (tokyo.location):
+      listRender(tokyo);
+      break;
+    case (paris.location):
+      listRender(paris);
+      break;
+    case (dubai.location):
+      listRender(dubai);
+      break;
+    case (lima.location):
+      listRender(lima);
+      break;
+    default:
+      // console.log(x);
+      break;
+    }
+  }
+}
+
+
+function handleSubmit(event){
+  // event.preventDefault();
+  event.stopPropagation();
   var newName = event.target.newName.value;
   var minFootTraffic = event.target.minFootTraffic.value;
   var maxFootTraffic = event.target.maxFootTraffic.value;
   var estimatedSalesPerCustomer = event.target.estimatedSalesPerCustomer.value;
-
+  
   event.target.newName.value = null;
   event.target.minFootTraffic.value = null;
   event.target.maxFootTraffic.value = null;
   event.target.estimatedSalesPerCustomer.value = null;
-
-  var newCoffeeShop = new CreateCoffeeShop(newName,minFootTraffic,maxFootTraffic,estimatedSalesPerCustomer);
+  
+  var newCoffeeShop = new CreateCoffeeShop(newName,minFootTraffic,maxFootTraffic,estimatedSalesPerCustomer, [[6,11],[15,19]]);
   newCoffeeShop.listTotalSalesArray();
   newCoffeeShop.render();
   totalsFooterRow();
@@ -159,6 +341,11 @@ function handleSubmit(event){
 
 
 
+var dubai = new CreateCoffeeShop('Dubai', 11, 38, 3.7, [[6,11],[14,19]]);
+var paris = new CreateCoffeeShop('Paris', 20, 38, 2.3, [[6, 19]]);
+var lima = new CreateCoffeeShop('Lima', 2, 16, 4.6, [[6, 19]]);
+var seattle = new CreateCoffeeShop('Seattle', 23, 65, 6.3, [[6, 19]]);
+var tokyo = new CreateCoffeeShop('Tokyo', 23, 33, 1.5, [[14,18]]);
 
 
 

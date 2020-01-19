@@ -7,19 +7,108 @@ color: rgb(255, 255, 255) gray;
 color: rgb(115, 115, 115); white*/
 /* background-image: url(/img/chinook.jpg); */
 
-fieldset {
-  height: 300px;
-  width: 300px;
+
+div {
+  float: left;
+}
+
+div fieldset {
+  height: 400px;
+  width: 250px;
   float: left;
   color: rgb(255, 255, 255);
   background-color: rgb(169, 99, 91);
   border-style: double;
 }
 
-body {
+fieldset legend {
+  left: float;
+  padding: 1px;
+  margin-left: 75px; 
+  margin-top: 1px; 
+}
+
+h3{
+  margin: 1px;
+  color: rgb(233, 195, 208);
+  font-family: 'Darker Grotesque', sans-serif;
+}
+
+h4 {
+margin: 1px;
+text-align: center;
+
+}
+figure {
+  float: left;
+  
+  /* line-height: 1px; */
+  padding: 15px;
+  margin: 5px;
+}
+
+figure p {
+  line-height: 1px;
+  margin: 1px;
+  width: 250px;
+  text-align: center;
+  margin: auto;
+}
+
+ul#listAm{
+  float: left;
+  width: 137px;
+  margin: 1px;
+  padding: 1px;
+  margin-left: 10px;
+  margin-top: 0px;
+}
+
+ul#listPm{
+  float: right;
+  width: 120px;
+  margin: 1px;
+  padding: 1px;
+  margin-right: 7px;
+  margin-top: 0px;
+}
+
+li {
+  width: 137px;
+  margin: 1px;
+  padding: 0px;
+  /* padding-left: 0px; */
+}
+
+.newLocation {
+  display: none;
+}
+
+.newUpdate {
+display: none;
+}
+
+section {
+  float: left;
+  width: 250px;
+}
+section button {
+  float: left;
+  margin: auto;
+}
+
+#cookieSales {
+  border-style: groove;
+  float: left;
+  color: black;
+  /* margin-right: 270px; */
+  /* margin-top: 90px; */
+}
+
+/* body {
   background-color: rgb(115, 115, 115);
   color: whitesmoke;
-}
+} */
 
 #pageBlock {
     /* background-image: url(/img/family.jpg); */
@@ -56,10 +145,6 @@ header:hover{
   border-style: dotted;
 }
 
-h2{
-  color: rgb(233, 195, 208);
-  font-family: 'Darker Grotesque', sans-serif;
-}
 
 article{
   color: rgb(217, 210, 108);
