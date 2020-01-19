@@ -95,6 +95,7 @@ CreateCoffeeShop.prototype.render = function(){//take out header build
   // var standardBusinessHours = [];
   // var standardBusinessHours = timeString([[6, 19]]);
   var localeDailySales = 0;
+  console.log(this.location);
   // var domSimulation = document.getElementById('cookieSales');//DOM INJECTION
   var domSimulation = document.getElementsByTagName('table')[0];//DOM INJECTION
   // var storeSimulation = document.createElement('tr');//or <ul>, for list
@@ -177,7 +178,7 @@ var dubai = new CreateCoffeeShop('Dubai', 11, 38, 3.7, [[6,11],[14,19]]);
 var paris = new CreateCoffeeShop('Paris', 20, 38, 2.3, [[6, 19]]);
 var lima = new CreateCoffeeShop('Lima', 2, 16, 4.6, [[6, 19]]);
 var seattle = new CreateCoffeeShop('Seattle', 23, 65, 6.3, [[6, 19]]);
-var tokyo = new CreateCoffeeShop('Tokyo', 23, 33, 1.5, [[6, 19]]);
+var tokyo = new CreateCoffeeShop('Tokyo', 23, 33, 1.5, [[14,18]]);
 
 
 var createCoffeeShopForm = document.getElementById('addNewLocale');

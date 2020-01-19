@@ -4,22 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
   <title>Document</title>
 </head>
-
+<div>
 <form id="addNewLocale">
   <fieldset>
     <legend>
-      <h2>Create New Global Locale</h2>
-    </legend>
-    <label>Locale Name</label><input name="newName" type="text" maxlength="18">
-    <label>minCust Per Hour</label><input name="minFootTraffic" type="number" min=".3" step=".3">
-    <label>maxCust Per Hour</label><input name="maxFootTraffic" type="number" max="60" step=".3">
-    <label>Estimated Sales Per Customer</label><input name="estimatedSalesPerCustomer" type="number" input name="minFootTraffic" type="text" max="19" step=".3">
+      <h3>Create New Global Locale</h3>
+      <label>Select Location</label><input name="selectionDropDown" type="text" maxlength="18" minlength="1">
+    </legend> 
+
+    <label>Locale Name</label><input name="newName" type="text" maxlength="18" minlength="1">
+    <label>minCust Per Hour</label><input name="minFootTraffic" type="text" min=".3" max="60" maxlength="3">
+    <label>maxCust Per Hour</label><input name="maxFootTraffic" type="text" min=".3" max="101" maxlength="3">
+    <label>Estimated Sales Per Customer</label><input name="estimatedSalesPerCustomer" type="number" input name="minFootTraffic" min="1" max="19" step=".3">
     <label>Daily schedule iterations</label><input name="scheduleDujour" type="number" step=".3">
-      </fieldset>
     <button type="submit">Create New Sales Simulation</button>
     <!-- minCust Per Hour<input type:"text"><br> -->
+  </fieldset>
 
 </form>
 
@@ -27,10 +30,10 @@
 
 
 
+<figure id='cookieSales'></figure>
+</div>
 
-
-
-<body id='cookieSales'>
+<body>
   
 <script src='app.js'></script>
 </body>

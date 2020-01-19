@@ -7,7 +7,12 @@ color: rgb(255, 255, 255) gray;
 color: rgb(115, 115, 115); white*/
 /* background-image: url(/img/chinook.jpg); */
 
-fieldset {
+
+div {
+  float: left;
+}
+
+div fieldset {
   height: 300px;
   width: 300px;
   float: left;
@@ -16,10 +21,18 @@ fieldset {
   border-style: double;
 }
 
-body {
+#cookieSales {
+  border-style: groove;
+  float: left;
+  color: black;
+  /* margin-right: 270px; */
+  /* margin-top: 90px; */
+}
+
+/* body {
   background-color: rgb(115, 115, 115);
   color: whitesmoke;
-}
+} */
 
 #pageBlock {
     /* background-image: url(/img/family.jpg); */
@@ -56,7 +69,7 @@ header:hover{
   border-style: dotted;
 }
 
-h2{
+h3{
   color: rgb(233, 195, 208);
   font-family: 'Darker Grotesque', sans-serif;
 }
