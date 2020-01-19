@@ -8,7 +8,7 @@
   <title>Document</title>
 </head>
 <div>
-<form id="addNewLocale">
+<form id="addUpdates">
   <fieldset>
     <legend>
       <h3>Global Selection</h3>
@@ -24,37 +24,40 @@
       <!-- <label>Select Location</label><input name="selectionDropDown" type="text" maxlength="18" minlength="1"> -->
     </legend> 
 
-    <!-- <label>Locale Name</label><input name="newName" type="text" maxlength="18" minlength="1"> -->
+    <label class="newLocation">Locale Name</label class="newLocation"><input name="newName" type="text" maxlength="18" minlength="1">
     <label>HourlyminCust</label><input name="minFootTraffic" type="text" min=".3" max="60" maxlength="3">
     <label>HourlymaxCust</label><input name="maxFootTraffic" type="text" min=".3" max="101" maxlength="3">
     <label>Estimated Sales Per Customer</label><input name="estimatedSalesPerCustomer" type="number" input name="minFootTraffic" min="1" max="19" step=".3">
     <!-- <label>Daily schedule iterations</label><input name="scheduleDujour" type="number" step=".3"> -->
     <figure>
-    <p>SCHEDULE  SLIDER</p><br>
+    <h4>SCHEDULE  SLIDER</h4><br>
       <p>6789101112</p><br>
       <p>1pm234567</p>
     </figure>
     <article>
       <ul id=listAm>
-        <li>6am</li>
+        <!-- <li>6am</li>
         <li>7</li>
         <li>8</li>
         <li>9</li>
         <li>10</li>
         <li>11</li>
-        <li>12</li>
+        <li>12</li> -->
       </ul>
       <ul id=listPm>
-        <li>1pm</li>
+        <!-- <li>1pm</li>
         <li>2</li>
         <li>3</li>
         <li>4</li>
         <li>5</li>
         <li>6</li>
-        <li>7</li>
+        <li>7</li> -->
       </ul>
     </article>
-      <!-- <button type="submit">Create New Sales Simulation</button> -->
+    <section>
+      <button type="submit" class="newLocation">Create New Sales Simulation</button>
+      <button type="submit" class="newUpdate">Update Location Simulation</button>
+    </section>
     <!-- minCust Per Hour<input type:"text"><br> -->
   </fieldset>
 

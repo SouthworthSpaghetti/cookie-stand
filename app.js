@@ -180,6 +180,53 @@ function listRender(store){
   //   console.log('good');
   // } else {
   //   console.log('x');
+  var x = 0;
+  var standardTimeArray = [];
+  var domSimulation = document.getElementsByTagName('article')[0];
+  clearFormList();
+  // var domClear = document.getElementById('listAm');
+  // domClear.remove();
+  // var domClear = document.getElementById('listPm');
+  // domClear.remove();
+  // var storeSimulationAm = document.createElement('ul');
+  // storeSimulationAm.setAttribute('id','listAm');
+  // domSimulation.appendChild(storeSimulationAm);
+  var domAM = document.getElementById('listAm');
+  // var storeSimulationPm = document.createElement('ul');
+  // storeSimulationPm.setAttribute('id', 'listPm');
+  // domSimulation.appendChild(storeSimulationPm);
+  var domPM = document.getElementById('listPm');
+  for (var j = 0; j < store.scheduleDujour.length; j++) {//going to loop thru number of schedules' start and end instances (ie. will loop thru twice for schedule: 06:00-10:00 & 13:00-19:00)
+  // standardTimeArray[x] = bracketTimeArray[j][0];//Jan17<---is this line necessary?
+  for (var jj = store.scheduleDujour[j][0]; jj < store.scheduleDujour[j][1] + 1; jj++) {//going to loop thru schedules' start and end instances, to 'fill in' all open hours
+  standardTimeArray[x++] = jj;
+}
+}
+for (var i = 0; i < store.hoursOneByOneArray.length; i++) {
+  var listItemHourlyUpdate = document.createElement('li');
+  // if(store.hoursOneByOneArray[i] === '12pm'){
+    //   // needs to be at bottom of list
+    // }
+    console.log(standardTimeArray)
+    if (standardTimeArray[i] > 12) {
+      console.log('x');
+      listItemHourlyUpdate.textContent = store.hoursOneByOneArray[i] + ': ' + store.salesEveryBusinessHour[i] + ' cookies';
+      domPM.appendChild(listItemHourlyUpdate);
+    } else if (standardTimeArray[i] < 12) {
+      listItemHourlyUpdate.textContent = store.hoursOneByOneArray[i] + ': ' + store.salesEveryBusinessHour[i] + ' cookies';
+      domAM.appendChild(listItemHourlyUpdate);
+    } else {
+      listItemHourlyUpdate.textContent = store.hoursOneByOneArray[i] + ': ' + store.salesEveryBusinessHour[i] + ' cookies';
+      domAM.appendChild(listItemHourlyUpdate);
+    }
+    // listItemHourlyUpdate.textContent = store.hoursOneByOneArray[i] + ': ' + store.salesEveryBusinessHour[i];
+    // storeSimulationAm.appendChild(listItemHourlyUpdate);
+    // domSimulation.appendChild(storeSimulationAm);
+  }
+  // var finalLoad = document.createElement('li');
+  // finalLoad.textContent = 'Total: ' + globalTotals;
+  // storeSimulation.appendChild(finalLoad);
+  // domSimulation.appendChild(storeSimulation);
 }
 
 
@@ -197,43 +244,82 @@ function listRender(store){
   // domSimulation.appendChild(storeSimulation);
   
   
-
   
   
-  var formSelector = document.querySelector('#localeSelector');
-  formSelector.addEventListener('change',handleSelector);
+function clearFormForUpdate(){
+  var x = document.getElementsByClassName('newLocation').length;
+document.getElementsByClassName('newUpdate')[0].style.display = 'block';//true
+for (var i = 0; i < x; i++) {
+  document.getElementsByClassName('newLocation')[i].style.display = 'none';//false
+}
+}
 
-  function handleSelector (event){
-    event.preventDefault();
-    var result = event.target.value;
-    if(result == 'Spawn New Location'){
-      console.log('build new');
-    } else {
-        switch(result){
-          case (seattle.location):
-            listRender(seattle);
-            break;
-          case (tokyo.location):
-            listRender(tokyo);
-            break;
-          case (paris.location):
-            listRender(paris);
-            break;
-          case (dubai.location):
-            listRender(dubai);
-            break;
-          case (lima.location):
-            listRender(lima);
-            break;
-          default:
-            console.log(x);
-          break
-        }
-      }
+function clearFormForLocationBuild(){
+  var x = document.getElementsByClassName('newLocation').length;
+  document.getElementsByClassName('newUpdate')[0].style.display = 'none';//false
+  for (var i = 0; i < x; i++) {
+    document.getElementsByClassName('newLocation')[i].style.display = 'block';//true
   }
+}
+
+function clearFormList(){
+  var domSimulation = document.getElementsByTagName('article')[0];
+  var domClear = document.getElementById('listAm');
+  domClear.remove();
+  var domClear = document.getElementById('listPm');
+  domClear.remove();
+  var storeSimulationAm = document.createElement('ul');
+  storeSimulationAm.setAttribute('id', 'listAm');
+  domSimulation.appendChild(storeSimulationAm);
+  var domAM = document.getElementById('listAm');
+  var storeSimulationPm = document.createElement('ul');
+  storeSimulationPm.setAttribute('id', 'listPm');
+  domSimulation.appendChild(storeSimulationPm);
+  var domPM = document.getElementById('listPm');
+}
+  
+var formSelector = document.querySelector('#localeSelector');
+formSelector.addEventListener('change',handleSelector);
+
+function handleSelector (event){
+  event.preventDefault();
+  var x = document.getElementsByClassName('newLocation').length;
+  for(var i = 0; i < x; i++){
+    document.getElementsByClassName('newLocation')[i].style.display = 'none';
+  }
+  document.getElementsByClassName('newUpdate')[0].style.display = 'none';
+  var result = event.target.value;
+  if(result === 'Spawn New Location'){
+    clearFormForLocationBuild();
+    console.log('build new');
+    clearFormList();
+  } else {
+    clearFormForUpdate();
+    switch(result){
+    case (seattle.location):
+      listRender(seattle);
+      break;
+    case (tokyo.location):
+      listRender(tokyo);
+      break;
+    case (paris.location):
+      listRender(paris);
+      break;
+    case (dubai.location):
+      listRender(dubai);
+      break;
+    case (lima.location):
+      listRender(lima);
+      break;
+    default:
+      console.log(x);
+      break;
+    }
+  }
+}
 
 
-var createCoffeeShopForm = document.getElementById('addNewLocale');
+var createCoffeeShopForm = document.getElementById('addUpdates');
 createCoffeeShopForm.addEventListener('submit', handleSubmit);
 function handleSubmit(event){
   event.preventDefault();
