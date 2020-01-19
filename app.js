@@ -181,6 +181,31 @@ var seattle = new CreateCoffeeShop('Seattle', 23, 65, 6.3, [[6, 19]]);
 var tokyo = new CreateCoffeeShop('Tokyo', 23, 33, 1.5, [[14,18]]);
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var createCoffeeShopForm = document.getElementById('addNewLocale');
 createCoffeeShopForm.addEventListener('submit', handleSubmit);
 function handleSubmit(event){

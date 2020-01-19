@@ -11,16 +11,50 @@
 <form id="addNewLocale">
   <fieldset>
     <legend>
-      <h3>Create New Global Locale</h3>
-      <label>Select Location</label><input name="selectionDropDown" type="text" maxlength="18" minlength="1">
+      <h3>Global Selection</h3>
+      <label for="localeSelector">Select Location</label>
+      <select name="selectLocation" id="localeSelector">
+        <option value="Seattle">Seattle</option>
+        <option value="Tokyo">Tokyo</option>
+        <option value="Paris">Paris</option>
+        <option value="Dubai">Dubai</option>
+        <option value="Lima">Lima</option>
+        <option value="Spawn New Location">Spawn New Location</option>
+      </select>
+      <!-- <label>Select Location</label><input name="selectionDropDown" type="text" maxlength="18" minlength="1"> -->
     </legend> 
 
-    <label>Locale Name</label><input name="newName" type="text" maxlength="18" minlength="1">
-    <label>minCust Per Hour</label><input name="minFootTraffic" type="text" min=".3" max="60" maxlength="3">
-    <label>maxCust Per Hour</label><input name="maxFootTraffic" type="text" min=".3" max="101" maxlength="3">
+    <!-- <label>Locale Name</label><input name="newName" type="text" maxlength="18" minlength="1"> -->
+    <label>HourlyminCust</label><input name="minFootTraffic" type="text" min=".3" max="60" maxlength="3">
+    <label>HourlymaxCust</label><input name="maxFootTraffic" type="text" min=".3" max="101" maxlength="3">
     <label>Estimated Sales Per Customer</label><input name="estimatedSalesPerCustomer" type="number" input name="minFootTraffic" min="1" max="19" step=".3">
-    <label>Daily schedule iterations</label><input name="scheduleDujour" type="number" step=".3">
-    <button type="submit">Create New Sales Simulation</button>
+    <!-- <label>Daily schedule iterations</label><input name="scheduleDujour" type="number" step=".3"> -->
+    <figure>
+    <p>SCHEDULE  SLIDER</p><br>
+      <p>6789101112</p><br>
+      <p>1pm234567</p>
+    </figure>
+    <article>
+      <ul id=listAm>
+        <li>6am</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+        <li>10</li>
+        <li>11</li>
+        <li>12</li>
+      </ul>
+      <ul id=listPm>
+        <li>1pm</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+      </ul>
+    </article>
+      <!-- <button type="submit">Create New Sales Simulation</button> -->
     <!-- minCust Per Hour<input type:"text"><br> -->
   </fieldset>
 
