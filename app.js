@@ -174,36 +174,63 @@ function timeString(bracketTimeArray) {//military open time//end time array [[6,
   return standardTimeArray;
 }//end military to standard time
 
-var dubai = new CreateCoffeeShop('Dubai', 11, 38, 3.7, [[6,11],[14,19]]);
-var paris = new CreateCoffeeShop('Paris', 20, 38, 2.3, [[6, 19]]);
-var lima = new CreateCoffeeShop('Lima', 2, 16, 4.6, [[6, 19]]);
-var seattle = new CreateCoffeeShop('Seattle', 23, 65, 6.3, [[6, 19]]);
-var tokyo = new CreateCoffeeShop('Tokyo', 23, 33, 1.5, [[14,18]]);
+
+function listRender(store){
+  // if (result == seattle.location){
+  //   console.log('good');
+  // } else {
+  //   console.log('x');
+}
 
 
+// var domSimulation = document.getElementById('cookieSales');
+// var storeSimulation = document.createElement('ul');
+// storeSimulation.textContent = this.locale;
+// for (var i = 0; i < this.hoursString.length; i++) {
+  //   var listItemHourlyUpdate = document.createElement('li');
+  //   listItemHourlyUpdate.textContent = this.hoursString[i] + ': ' + this.hoursSalesString[i];
+  //   storeSimulation.appendChild(listItemHourlyUpdate);
+  // }
+  // var finalLoad = document.createElement('li');
+  // finalLoad.textContent = 'Total: ' + globalTotals;
+  // storeSimulation.appendChild(finalLoad);
+  // domSimulation.appendChild(storeSimulation);
+  
+  
 
+  
+  
+  var formSelector = document.querySelector('#localeSelector');
+  formSelector.addEventListener('change',handleSelector);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  function handleSelector (event){
+    event.preventDefault();
+    var result = event.target.value;
+    if(result == 'Spawn New Location'){
+      console.log('build new');
+    } else {
+        switch(result){
+          case (seattle.location):
+            listRender(seattle);
+            break;
+          case (tokyo.location):
+            listRender(tokyo);
+            break;
+          case (paris.location):
+            listRender(paris);
+            break;
+          case (dubai.location):
+            listRender(dubai);
+            break;
+          case (lima.location):
+            listRender(lima);
+            break;
+          default:
+            console.log(x);
+          break
+        }
+      }
+  }
 
 
 var createCoffeeShopForm = document.getElementById('addNewLocale');
@@ -214,12 +241,12 @@ function handleSubmit(event){
   var minFootTraffic = event.target.minFootTraffic.value;
   var maxFootTraffic = event.target.maxFootTraffic.value;
   var estimatedSalesPerCustomer = event.target.estimatedSalesPerCustomer.value;
-
+  
   event.target.newName.value = null;
   event.target.minFootTraffic.value = null;
   event.target.maxFootTraffic.value = null;
   event.target.estimatedSalesPerCustomer.value = null;
-
+  
   var newCoffeeShop = new CreateCoffeeShop(newName,minFootTraffic,maxFootTraffic,estimatedSalesPerCustomer, [[6,11],[15,19]]);
   newCoffeeShop.listTotalSalesArray();
   newCoffeeShop.render();
@@ -228,6 +255,11 @@ function handleSubmit(event){
 
 
 
+var dubai = new CreateCoffeeShop('Dubai', 11, 38, 3.7, [[6,11],[14,19]]);
+var paris = new CreateCoffeeShop('Paris', 20, 38, 2.3, [[6, 19]]);
+var lima = new CreateCoffeeShop('Lima', 2, 16, 4.6, [[6, 19]]);
+var seattle = new CreateCoffeeShop('Seattle', 23, 65, 6.3, [[6, 19]]);
+var tokyo = new CreateCoffeeShop('Tokyo', 23, 33, 1.5, [[14,18]]);
 
 
 
