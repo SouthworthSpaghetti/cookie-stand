@@ -12,8 +12,9 @@
   <fieldset>
     <legend>
       <h3>Global Selection</h3>
-      <label for="localeSelector">Select Location</label>
+      <!-- <label for="localeSelector">Select Location</label> -->
       <select name="selectLocation" id="localeSelector">
+        <option value="selectLocation">Select Location</option>
         <option value="Seattle">Seattle</option>
         <option value="Tokyo">Tokyo</option>
         <option value="Paris">Paris</option>
@@ -53,9 +54,10 @@
         <li>6</li>
         <li>7</li> -->
       </ul>
+      
     </article>
     <section>
-      <button type="submit" class="newLocation">Create New Sales Simulation</button>
+      <button type="submit" class="newLocation" id="newLocation">Create New Sales Simulation</button>
       <button type="submit" class="newUpdate">Update Location Simulation</button>
     </section>
     <!-- minCust Per Hour<input type:"text"><br> -->

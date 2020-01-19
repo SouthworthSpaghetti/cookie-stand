@@ -58,11 +58,11 @@ CreateCoffeeShop.prototype.listTotalSalesArray = function() {
     for(var ii = 0; ii < standardBusinessHours.length; ii++){
         if (isNaN(globalSalesPerHour[ii])) {
         globalSalesPerHour[ii] = 0;
-        console.log(i + ' clear ii ' + ii);
+        // console.log(i + ' clear ii ' + ii);
       } if (this.hoursOneByOneArray[i] === standardBusinessHours[ii]) {
         globalSalesPerHour[ii] += this.salesEveryBusinessHour[i];
         ii = standardBusinessHours.length;
-        console.log(i + ' as i/././ii as' + ii);
+        // console.log(i + ' as i/././ii as' + ii);
       }
     }
       
@@ -95,7 +95,7 @@ CreateCoffeeShop.prototype.render = function(){//take out header build
   // var standardBusinessHours = [];
   // var standardBusinessHours = timeString([[6, 19]]);
   var localeDailySales = 0;
-  console.log(this.location);
+  // console.log(this.location);
   // var domSimulation = document.getElementById('cookieSales');//DOM INJECTION
   var domSimulation = document.getElementsByTagName('table')[0];//DOM INJECTION
   // var storeSimulation = document.createElement('tr');//or <ul>, for list
@@ -162,13 +162,13 @@ function timeString(bracketTimeArray) {//military open time//end time array [[6,
     for (var i = 0; i < standardTimeArray.length; i++) {//military to standard time am/pm
       if (standardTimeArray[i] > 12) {
         standardTimeArray[i] = (standardTimeArray[i] - 12) + 'pm';
-        console.log(standardTimeArray);
+        // console.log(standardTimeArray);
       } else if (standardTimeArray[i] < 12) {
         standardTimeArray[i] = standardTimeArray[i] + 'am';
-        console.log(standardTimeArray);
+        // console.log(standardTimeArray);
       } else
         standardTimeArray[i] = standardTimeArray[i] + 'pm';//noon time
-      console.log(standardTimeArray);
+      // console.log(standardTimeArray);
     }
   
   return standardTimeArray;
@@ -207,9 +207,9 @@ for (var i = 0; i < store.hoursOneByOneArray.length; i++) {
   // if(store.hoursOneByOneArray[i] === '12pm'){
     //   // needs to be at bottom of list
     // }
-    console.log(standardTimeArray)
+    // console.log(standardTimeArray)
     if (standardTimeArray[i] > 12) {
-      console.log('x');
+      // console.log('x');
       listItemHourlyUpdate.textContent = store.hoursOneByOneArray[i] + ': ' + store.salesEveryBusinessHour[i] + ' cookies';
       domPM.appendChild(listItemHourlyUpdate);
     } else if (standardTimeArray[i] < 12) {
@@ -291,8 +291,9 @@ function handleSelector (event){
   var result = event.target.value;
   if(result === 'Spawn New Location'){
     clearFormForLocationBuild();
-    console.log('build new');
     clearFormList();
+    var createCoffeeShopForm = document.getElementsByClassName('newLocation')[1];
+    createCoffeeShopForm.addEventListener('submit', handleSubmit);
   } else {
     clearFormForUpdate();
     switch(result){
@@ -312,17 +313,16 @@ function handleSelector (event){
       listRender(lima);
       break;
     default:
-      console.log(x);
+      // console.log(x);
       break;
     }
   }
 }
 
 
-var createCoffeeShopForm = document.getElementById('addUpdates');
-createCoffeeShopForm.addEventListener('submit', handleSubmit);
 function handleSubmit(event){
-  event.preventDefault();
+  // event.preventDefault();
+  event.stopPropagation();
   var newName = event.target.newName.value;
   var minFootTraffic = event.target.minFootTraffic.value;
   var maxFootTraffic = event.target.maxFootTraffic.value;

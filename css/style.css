@@ -89,6 +89,7 @@ display: none;
 }
 
 section {
+  float: left;
   width: 250px;
 }
 section button {
