@@ -47,18 +47,46 @@ figure {
   margin: 5px;
 }
 
-figure p {
+#rangeAmA {
+  width: 127px;
+  position: absolute;
+  /* float: left; */
+  margin: 0px;
+}
+#rangeAmO {
+  width: 128px;
+  float: right;
+  margin: 0px;
+}
+
+#rangePmA {
+  width: 127px;
+  position: absolute;
+  /* float: left; */
+  top: 227px;
+  left: 45px;
+  margin: 0px;
+}
+#rangePmO {
+  width: 128px;
+  float: right;
+  margin: 0px;
+}
+
+p {
   line-height: 1px;
   margin: 1px;
   width: 250px;
+  float: left;
   text-align: center;
+  word-spacing: 1px;
   margin: auto;
 }
 
 ul#listAm{
   float: left;
   width: 137px;
-  margin: 1px;
+  margin: auto;
   padding: 1px;
   margin-left: 10px;
   margin-top: 0px;

@@ -32,8 +32,15 @@
     <!-- <label>Daily schedule iterations</label><input name="scheduleDujour" type="number" step=".3"> -->
     <figure>
     <h4>SCHEDULE  SLIDER</h4><br>
-      <p>6789101112</p><br>
-      <p>1pm234567</p>
+      <input type="range" min="6" max="9" class="slider" id="rangeAmA">
+  
+      
+          <input type="range" min="9" max="12" class="slider" id="rangeAmO">
+        
+      <p>6am 7am 8am 9am 10am 11am 12pm</p><br>
+            <input type="range" min="13" max="16" class="slider" id="rangePmA">
+            <input type="range" min="16" max="19" class="slider" id="rangePmO">
+      <p>1pm 2pm 3pm 4pm 5pm 6pm 7pm</p>
     </figure>
     <article>
       <ul id=listAm>
@@ -56,10 +63,10 @@
       </ul>
       
     </article>
-    <section>
-      <button type="submit" class="newLocation" id="newLocation">Create New Sales Simulation</button>
-      <button type="submit" class="newUpdate">Update Location Simulation</button>
-    </section>
+    <!-- <section> -->
+      <button type="submit">Update Sales Simulation</button>
+      <!-- <button type="submit" class="newUpdate">Update Location Simulation</button> -->
+    <!-- </section> -->
     <!-- minCust Per Hour<input type:"text"><br> -->
   </fieldset>
 

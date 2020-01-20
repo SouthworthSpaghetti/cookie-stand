@@ -246,21 +246,21 @@ for (var i = 0; i < store.hoursOneByOneArray.length; i++) {
   
   
   
-function clearFormForUpdate(){
-  var x = document.getElementsByClassName('newLocation').length;
-document.getElementsByClassName('newUpdate')[0].style.display = 'block';//true
-for (var i = 0; i < x; i++) {
-  document.getElementsByClassName('newLocation')[i].style.display = 'none';//false
-}
-}
+// function clearFormForUpdate(){
+//   var x = document.getElementsByClassName('newLocation').length;
+// document.getElementsByClassName('newUpdate')[0].style.display = 'block';//true
+// for (var i = 0; i < x; i++) {
+//   document.getElementsByClassName('newLocation')[i].style.display = 'none';//false
+// }
+// }
 
-function clearFormForLocationBuild(){
-  var x = document.getElementsByClassName('newLocation').length;
-  document.getElementsByClassName('newUpdate')[0].style.display = 'none';//false
-  for (var i = 0; i < x; i++) {
-    document.getElementsByClassName('newLocation')[i].style.display = 'block';//true
-  }
-}
+// function clearFormForLocationBuild(){
+//   var x = document.getElementsByClassName('newLocation').length;
+//   document.getElementsByClassName('newUpdate')[0].style.display = 'none';//false
+//   for (var i = 0; i < x; i++) {
+//     document.getElementsByClassName('newLocation')[i].style.display = 'block';//true
+//   }
+// }
 
 function clearFormList(){
   var domSimulation = document.getElementsByTagName('article')[0];
@@ -284,18 +284,15 @@ formSelector.addEventListener('change',handleSelector);
 function handleSelector (event){
   event.preventDefault();
   var x = document.getElementsByClassName('newLocation').length;
-  for(var i = 0; i < x; i++){
-    document.getElementsByClassName('newLocation')[i].style.display = 'none';
-  }
-  document.getElementsByClassName('newUpdate')[0].style.display = 'none';
+  // for(var i = 0; i < x; i++){
+  //   document.getElementsByClassName('newLocation')[i].style.display = 'none';
+  // }
   var result = event.target.value;
   if(result === 'Spawn New Location'){
-    clearFormForLocationBuild();
+    // clearFormForLocationBuild();
+    document.getElementsByClassName('newLocation')[0].style.display = 'inline-block';
     clearFormList();
-    var createCoffeeShopForm = document.getElementsByClassName('newLocation')[1];
-    createCoffeeShopForm.addEventListener('submit', handleSubmit);
   } else {
-    clearFormForUpdate();
     switch(result){
     case (seattle.location):
       listRender(seattle);
@@ -313,21 +310,50 @@ function handleSelector (event){
       listRender(lima);
       break;
     default:
-      // console.log(x);
+      // console.log(lkjlkjjlkj);
       break;
     }
   }
 }
 
+var sliderAmA = document.getElementById("rangeAmA");
+var sliderAmO = document.getElementById("rangeAmO");
+var sliderPmA = document.getElementById("rangePmA");
+var sliderPmO = document.getElementById("rangePmO");
 
+var amAlpha = 0;
+var amOmega = 0;
+var pmAlpha = 0;
+var pmOmega = 0;
+
+sliderAmA.oninput = function(){
+  amAlpha = this.value;
+}
+sliderAmO.oninput = function () {
+  amOmega = this.value;
+}
+sliderPmA.oninput = function () {
+  pmAlpha = this.value;
+}
+sliderPmO.oninput = function () {
+  pmOmega = this.value;
+}
+
+var createCoffeeShopForm = document.getElementById('addUpdates');
+createCoffeeShopForm.addEventListener('submit', handleSubmit);
 function handleSubmit(event){
-  // event.preventDefault();
-  event.stopPropagation();
+  event.preventDefault();
   var newName = event.target.newName.value;
   var minFootTraffic = event.target.minFootTraffic.value;
   var maxFootTraffic = event.target.maxFootTraffic.value;
   var estimatedSalesPerCustomer = event.target.estimatedSalesPerCustomer.value;
   
+
+
+
+
+
+
   event.target.newName.value = null;
   event.target.minFootTraffic.value = null;
   event.target.maxFootTraffic.value = null;
