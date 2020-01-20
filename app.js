@@ -316,28 +316,7 @@ function handleSelector (event){
   }
 }
 
-var sliderAmA = document.getElementById("rangeAmA");
-var sliderAmO = document.getElementById("rangeAmO");
-var sliderPmA = document.getElementById("rangePmA");
-var sliderPmO = document.getElementById("rangePmO");
 
-var amAlpha = 0;
-var amOmega = 0;
-var pmAlpha = 0;
-var pmOmega = 0;
-
-sliderAmA.oninput = function(){
-  amAlpha = this.value;
-}
-sliderAmO.oninput = function () {
-  amOmega = this.value;
-}
-sliderPmA.oninput = function () {
-  pmAlpha = this.value;
-}
-sliderPmO.oninput = function () {
-  pmOmega = this.value;
-}
 
 var createCoffeeShopForm = document.getElementById('addUpdates');
 createCoffeeShopForm.addEventListener('submit', handleSubmit);
@@ -348,18 +327,49 @@ function handleSubmit(event){
   var maxFootTraffic = event.target.maxFootTraffic.value;
   var estimatedSalesPerCustomer = event.target.estimatedSalesPerCustomer.value;
   
+  
+  
+  var sliderAmA = document.getElementById("rangeAmA").value;
+  var sliderAmO = document.getElementById("rangeAmO").value;
+  var sliderPmA = document.getElementById("rangePmA").value;
+  var sliderPmO = document.getElementById("rangePmO").value;
 
+  var sliderArray = [[Number(sliderAmA), Number(sliderAmO)], [Number(sliderPmA), Number(sliderPmO)]]
+  console.log(sliderArray);
 
-
-
-
-
+  // if ((sliderAmA)){
+  //   sliderAmA = 6;
+  // }
+  // if (isNan(sliderAmO)){
+  //   sliderAmO = 12;
+  // }
+  // if (isNan(sliderPmA)){
+  //   sliderPmA = 12;
+  // }
+  // if (isNan(sliderPmO)){
+  //   sliderPmO = 19;
+  // }
+    // sliderAmA.oninput = function () {
+  //   console.log(this.value);
+  //   amAlpha = this.value;
+  // }
+  // sliderAmO.oninput = function () {
+  //   amOmega = this.value;
+  // }
+  // sliderPmA.oninput = function () {
+  //   pmAlpha = this.value;
+  // }
+  // sliderPmO.oninput = function () {
+  //   pmOmega = this.value;
+  // }
+  
+  var newCoffeeShop = new CreateCoffeeShop(newName, minFootTraffic, maxFootTraffic, estimatedSalesPerCustomer, sliderArray);
+  console.log(this.hoursOneByOneArray);
   event.target.newName.value = null;
   event.target.minFootTraffic.value = null;
   event.target.maxFootTraffic.value = null;
   event.target.estimatedSalesPerCustomer.value = null;
-  
-  var newCoffeeShop = new CreateCoffeeShop(newName,minFootTraffic,maxFootTraffic,estimatedSalesPerCustomer, [[6,11],[15,19]]);
+
   newCoffeeShop.listTotalSalesArray();
   newCoffeeShop.render();
   totalsFooterRow();
