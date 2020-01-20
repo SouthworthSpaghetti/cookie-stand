@@ -7,14 +7,9 @@ color: rgb(255, 255, 255) gray;
 color: rgb(115, 115, 115); white*/
 /* background-image: url(/img/chinook.jpg); */
 
-
-div {
-  float: left;
-}
-
-div fieldset {
+fieldset {
   height: 400px;
-  width: 250px;
+  width: 318px;
   float: left;
   color: rgb(255, 255, 255);
   background-color: rgb(169, 99, 91);
@@ -22,11 +17,31 @@ div fieldset {
 }
 
 fieldset legend {
-  left: float;
+  float: left;
   padding: 1px;
   margin-left: 75px; 
   margin-top: 1px; 
 }
+
+div{
+  float: left;
+  height: 90px;
+  width: 318px; 
+  padding: 0px;
+}
+
+/* label.salesData{
+  margin-top: 0px;
+  line-height: 25px;
+  float: left;
+  width: 200px;
+}
+input.salesData{
+  float: right;
+  width: 90px;
+  margin-right: 0px;
+  padding: 0px;
+}  */
 
 h3{
   margin: 1px;
@@ -38,6 +53,7 @@ h4 {
 margin: 1px;
 text-align: center;
 
+
 }
 figure {
   float: left;
@@ -48,27 +64,27 @@ figure {
 }
 
 #rangeAmA {
-  width: 127px;
+  width: 140px;
   position: absolute;
   /* float: left; */
   margin: 0px;
 }
 #rangeAmO {
-  width: 128px;
+  width: 138px;
   float: right;
   margin: 0px;
 }
 
 #rangePmA {
-  width: 127px;
+  width: 140px;
   position: absolute;
   /* float: left; */
-  top: 227px;
+  top: 232px;
   left: 45px;
   margin: 0px;
 }
 #rangePmO {
-  width: 128px;
+  width: 138px;
   float: right;
   margin: 0px;
 }
