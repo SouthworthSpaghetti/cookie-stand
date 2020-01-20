@@ -9,6 +9,13 @@ globalSalesPerHour.length = standardBusinessHours.length;
 // var standardBusinessHours = [];
 // console.log('standardBusinessHours');
 
+var formSelector = document.querySelector('#localeSelector');
+formSelector.addEventListener('change', handleSelector);
+
+var sliderAmA = document.getElementById('rangeAmA');
+var sliderAmO = document.getElementById('rangeAmO');
+var sliderPmA = document.getElementById('rangePmA');
+var sliderPmO = document.getElementById('rangePmO');
 //one time header build
 var domTableLocale = document.getElementById('cookieSales');//DOM INJECTION
 var domNewTable = document.createElement('table');//or <ul>, for list
@@ -184,6 +191,18 @@ function listRender(store){
   var standardTimeArray = [];
   var domSimulation = document.getElementsByTagName('article')[0];
   clearFormList();
+
+  // var drDiv = document.getElementsByTagName('div')[0];
+  // // var minCust = document.getElementsByName('minFootTraffic')[0];
+  // var minCust = document.getElementsByTagName('input')[1];
+  // var maxCust = document.getElementsByName('maxFootTraffic')[0];
+  // var avgSalePerCust = document.getElementsByName('estimatedSalesPerCustomer')[0];
+  // minCust.textContent = store.minCust;
+  // maxCust.textContent = store.maxCust;
+  // avgSalePerCust= store.avgSalePerCust;
+  // drDiv.appendChild(minCust);
+
+  
   // var domClear = document.getElementById('listAm');
   // domClear.remove();
   // var domClear = document.getElementById('listPm');
@@ -201,7 +220,30 @@ function listRender(store){
   for (var jj = store.scheduleDujour[j][0]; jj < store.scheduleDujour[j][1] + 1; jj++) {//going to loop thru schedules' start and end instances, to 'fill in' all open hours
   standardTimeArray[x++] = jj;
 }
+
 }
+  // if (store.scheduleDujour[0][1] === store.scheduleDujour[1][0]){
+  // sliderAmO.value = store.scheduleDujour[0][1];
+  // sliderPmA.value = store.scheduleDujour[1][0];
+  // } else 
+  
+  if (store.scheduleDujour.length < 2){
+    sliderAmA.value = store.scheduleDujour[0][0];
+    sliderAmO.value = 12;
+    sliderPmA.value = 12;
+    sliderPmO.value = store.scheduleDujour[0][1];
+
+  } 
+  if (store.scheduleDujour.length > 1){
+  sliderAmA.value = store.scheduleDujour[0][0];
+  sliderAmO.value = store.scheduleDujour[0][1];
+  sliderPmA.value = store.scheduleDujour[1][0];
+  sliderPmO.value = store.scheduleDujour[1][1];
+  }
+
+
+
+
 for (var i = 0; i < store.hoursOneByOneArray.length; i++) {
   var listItemHourlyUpdate = document.createElement('li');
   // if(store.hoursOneByOneArray[i] === '12pm'){
@@ -246,21 +288,21 @@ for (var i = 0; i < store.hoursOneByOneArray.length; i++) {
   
   
   
-function clearFormForUpdate(){
-  var x = document.getElementsByClassName('newLocation').length;
-document.getElementsByClassName('newUpdate')[0].style.display = 'block';//true
-for (var i = 0; i < x; i++) {
-  document.getElementsByClassName('newLocation')[i].style.display = 'none';//false
-}
-}
+// function clearFormForUpdate(){
+//   var x = document.getElementsByClassName('newLocation').length;
+// document.getElementsByClassName('newUpdate')[0].style.display = 'block';//true
+// for (var i = 0; i < x; i++) {
+//   document.getElementsByClassName('newLocation')[i].style.display = 'none';//false
+// }
+// }
 
-function clearFormForLocationBuild(){
-  var x = document.getElementsByClassName('newLocation').length;
-  document.getElementsByClassName('newUpdate')[0].style.display = 'none';//false
-  for (var i = 0; i < x; i++) {
-    document.getElementsByClassName('newLocation')[i].style.display = 'block';//true
-  }
-}
+// function clearFormForLocationBuild(){
+//   var x = document.getElementsByClassName('newLocation').length;
+//   document.getElementsByClassName('newUpdate')[0].style.display = 'none';//false
+//   for (var i = 0; i < x; i++) {
+//     document.getElementsByClassName('newLocation')[i].style.display = 'block';//true
+//   }
+// }
 
 function clearFormList(){
   var domSimulation = document.getElementsByTagName('article')[0];
@@ -278,24 +320,25 @@ function clearFormList(){
   var domPM = document.getElementById('listPm');
 }
   
-var formSelector = document.querySelector('#localeSelector');
-formSelector.addEventListener('change',handleSelector);
+
 
 function handleSelector (event){
   event.preventDefault();
-  var x = document.getElementsByClassName('newLocation').length;
-  for(var i = 0; i < x; i++){
-    document.getElementsByClassName('newLocation')[i].style.display = 'none';
-  }
-  document.getElementsByClassName('newUpdate')[0].style.display = 'none';
+  // var x = document.getElementsByClassName('newLocation').length;
+  // for(var i = 0; i < x; i++){
+  //   document.getElementsByClassName('newLocation')[i].style.display = 'none';
+  // }
   var result = event.target.value;
   if(result === 'Spawn New Location'){
-    clearFormForLocationBuild();
+    // clearFormForLocationBuild();
+    for (var i = 0; i < document.getElementsByClassName('newLocation').length; i++){
+      document.getElementsByClassName('newLocation')[i].style.display = 'inline-block';
+    }
     clearFormList();
-    var createCoffeeShopForm = document.getElementsByClassName('newLocation')[1];
-    createCoffeeShopForm.addEventListener('submit', handleSubmit);
   } else {
-    clearFormForUpdate();
+    for (var i = 0; i < document.getElementsByClassName('newLocation').length; i++) {
+      document.getElementsByClassName('newLocation')[i].style.display = 'none';
+    }
     switch(result){
     case (seattle.location):
       listRender(seattle);
@@ -313,27 +356,61 @@ function handleSelector (event){
       listRender(lima);
       break;
     default:
-      // console.log(x);
+      // console.log(lkjlkjjlkj);
       break;
     }
   }
 }
 
 
+
+var createCoffeeShopForm = document.getElementById('addUpdates');
+createCoffeeShopForm.addEventListener('submit', handleSubmit);
 function handleSubmit(event){
-  // event.preventDefault();
-  event.stopPropagation();
+  event.preventDefault();
   var newName = event.target.newName.value;
   var minFootTraffic = event.target.minFootTraffic.value;
   var maxFootTraffic = event.target.maxFootTraffic.value;
   var estimatedSalesPerCustomer = event.target.estimatedSalesPerCustomer.value;
   
-  event.target.newName.value = null;
-  event.target.minFootTraffic.value = null;
-  event.target.maxFootTraffic.value = null;
-  event.target.estimatedSalesPerCustomer.value = null;
   
-  var newCoffeeShop = new CreateCoffeeShop(newName,minFootTraffic,maxFootTraffic,estimatedSalesPerCustomer, [[6,11],[15,19]]);
+  
+ 
+
+  var sliderArray = [[Number(sliderAmA.value), Number(sliderAmO.value)], [Number(sliderPmA.value), Number(sliderPmO.value)]]
+  console.log(sliderArray);
+    // sliderAmA.oninput = function () {
+  //   console.log(this.value);
+  //   amAlpha = this.value;
+  // }
+  // sliderAmO.oninput = function () {
+  //   amOmega = this.value;
+  // }
+  // sliderPmA.oninput = function () {
+  //   pmAlpha = this.value;
+  // }
+  // sliderPmO.oninput = function () {
+  //   pmOmega = this.value;
+  // }
+  
+  var newCoffeeShop = new CreateCoffeeShop(newName, minFootTraffic, maxFootTraffic, estimatedSalesPerCustomer, sliderArray);
+
+  if (formSelector.value === 'Tokyo'){
+    console.log('Yippie');
+  }
+
+
+  // event.target.newName.value = null;
+  // event.target.minFootTraffic.value = null;
+  // event.target.maxFootTraffic.value = null;
+  // event.target.estimatedSalesPerCustomer.value = null;
+ 
+
+  sliderAmA.value = 6;
+  sliderAmO.value = 12;
+  sliderPmA.value = 13;
+  sliderPmO.value = 19;
+
   newCoffeeShop.listTotalSalesArray();
   newCoffeeShop.render();
   totalsFooterRow();
@@ -343,9 +420,9 @@ function handleSubmit(event){
 
 var dubai = new CreateCoffeeShop('Dubai', 11, 38, 3.7, [[6,11],[14,19]]);
 var paris = new CreateCoffeeShop('Paris', 20, 38, 2.3, [[6, 19]]);
-var lima = new CreateCoffeeShop('Lima', 2, 16, 4.6, [[6, 19]]);
+var lima = new CreateCoffeeShop('Lima', 2, 16, 4.6, [[6, 10],[15,19]]);
 var seattle = new CreateCoffeeShop('Seattle', 23, 65, 6.3, [[6, 19]]);
-var tokyo = new CreateCoffeeShop('Tokyo', 23, 33, 1.5, [[14,18]]);
+var tokyo = new CreateCoffeeShop('Tokyo', 23, 33, 1.5, [[8,18]]);
 
 
 
