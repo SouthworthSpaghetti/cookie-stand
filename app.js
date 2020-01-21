@@ -191,7 +191,18 @@ function listRender(store){
   var standardTimeArray = [];
   var domSimulation = document.getElementsByTagName('article')[0];
   var domWholeBody = document.getElementById('salesDataContainer');
-  var domSalesInput = document.getElementsByClassName('salesData')[0];
+  // var domSalesInput = document.getElementsByClassName('salesData')[0];
+  
+  var domSalesInput = document.getElementsByName('newName')[0];
+  domSalesInput.setAttribute('placeholder', 'BOOGABOO');
+  var domSalesInput = document.getElementsByName('minFootTraffic')[0];
+  domSalesInput.setAttribute('placeholder', store.minCust);
+  var domSalesInput = document.getElementsByName('maxFootTraffic')[0];
+  domSalesInput.setAttribute('placeholder', store.maxCust);
+  var domSalesInput = document.getElementsByName('estimatedSalesPerCustomer')[0];
+  domSalesInput.setAttribute('placeholder', store.avgSale);
+
+
   // domSalesInput.textContent = 'boogaboo';Y
   // domSalesInput.innerHTML = 'boogaboo';Y
   // domSalesInput.outerHTML = 'boogaboo';Y, Deletes InputDeviceInfo, repalces with text 

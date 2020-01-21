@@ -24,9 +24,11 @@ fieldset legend {
   /* z-index: 2; */
 }
 
+
+/* 
 .shadowText{
   /* float: right;
-  margin-top: 50px; */
+  margin-top: 50px; 
   position: absolute;
   color: black;
   font-size: 15px;
@@ -35,7 +37,7 @@ fieldset legend {
   margin: 0px;
   z-index: 0;
 
-}
+} */
 
 div{
   float: left;
@@ -49,8 +51,9 @@ div{
   line-height: 25px;
   float: left;
   width: 200px;
-}
-input.salesData{
+/* } */
+
+/* input.salesData{
   float: right;
   width: 90px;
   margin-right: 0px;
