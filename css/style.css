@@ -21,6 +21,20 @@ fieldset legend {
   padding: 1px;
   margin-left: 75px; 
   margin-top: 1px; 
+  /* z-index: 2; */
+}
+
+.shadowText{
+  /* float: right;
+  margin-top: 50px; */
+  position: absolute;
+  color: black;
+  font-size: 15px;
+    top: 92px;
+  left: 45px;
+  margin: 0px;
+  z-index: 0;
+
 }
 
 div{

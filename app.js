@@ -190,6 +190,28 @@ function listRender(store){
   var x = 0;
   var standardTimeArray = [];
   var domSimulation = document.getElementsByTagName('article')[0];
+  var domWholeBody = document.getElementById('salesDataContainer');
+  var domSalesInput = document.getElementsByClassName('salesData')[0];
+  // domSalesInput.textContent = 'boogaboo';Y
+  // domSalesInput.innerHTML = 'boogaboo';Y
+  // domSalesInput.outerHTML = 'boogaboo';Y, Deletes InputDeviceInfo, repalces with text 
+  // domSalesInput.slot = 'boogaboo';N adds attribute slot 
+  // domSalesInput.toggleAttribute = 'boogaboo';N 
+  // domSalesInput.shadowRoot = 'boogaboo';N 
+  // domSalesInput.prefix = 'boogaboo';N 
+  // domSalesInput.insertBefore= 'boogaboo';N 
+  // domSalesInput.after = 'boogaboo';N 
+  // domSalesInput.before = 'boogaboo';N 
+  // domSalesInput.insertAdjacentText = 'boogaboo';N
+  // domSalesInput.insertAdjacentElement = 'boogaboo';N
+  // domSalesInput.insertAdjacentHTML = 'boogaboo';
+
+
+  
+  domSalesInput.appendChild;
+  // domWholeBody.appendChild(domSalesInput);
+
+
   clearFormList();
 
   // var drDiv = document.getElementsByTagName('div')[0];
