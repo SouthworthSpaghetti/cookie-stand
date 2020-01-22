@@ -50,7 +50,10 @@ function CreateCoffeeShop(newName, minFootTraffic, maxFootTraffic, estimatedSale
   this.salesEveryBusinessHour = [];
   // this.salesEveryBusinessHour = listTotalSalesArray(this.hoursOneByOneArray, this.minCust, this.maxCust, this.avgSale, this.hoursFootTraffic);//prototype or function?
 
+  CreateCoffeeShop.allShops.push(this);
 }//end of CreateCoffeeShop constructor
+
+CreateCoffeeShop.allShops = [];
 
 CreateCoffeeShop.prototype.listTotalSalesArray = function() {
   // var x = 0;
@@ -353,6 +356,23 @@ function clearFormList(){
   storeSimulationPm.setAttribute('id', 'listPm');
   domSimulation.appendChild(storeSimulationPm);
   var domPM = document.getElementById('listPm');
+
+
+  // var domSalesInput = document.getElementsByName('newName')[0];
+  // domSalesInput.setAttribute('placeholder', 'New Localation Name');
+  // var domSalesInput = document.getElementsByName('minFootTraffic')[0];
+  // domSalesInput.setAttribute('placeholder', store.minCust);
+  // var domSalesInput = document.getElementsByName('maxFootTraffic')[0];
+  // domSalesInput.setAttribute('placeholder', store.maxCust);
+  // var domSalesInput = document.getElementsByName('estimatedSalesPerCustomer')[0];
+  // domSalesInput.setAttribute('placeholder', store.avgSale);
+
+  // event.target.newName.value = '';
+
+  // var newName = event.target.newName.value;
+  // var minFootTraffic = event.target.minFootTraffic.value;
+  // var maxFootTraffic = event.target.maxFootTraffic.value;
+  // var estimatedSalesPerCustomer = event.target.estimatedSalesPerCustomer.value;
 }
   
 
@@ -424,33 +444,59 @@ function handleSubmit(event){
   // sliderPmO.oninput = function () {
   //   pmOmega = this.value;
   // }
-  for (var i = 0; i < CreateCoffeeShop.length; i++){
-    if(newName =! CreateCoffeeShop[i].location){
+  for (var i = 0; i < CreateCoffeeShop.allShops.length; i++){
+    if (newName !== CreateCoffeeShop.allShops[i].location){
     var newCoffeeShop = new CreateCoffeeShop(newName, minFootTraffic, maxFootTraffic, estimatedSalesPerCustomer, sliderArray);
-    } else if (newName === CreateCoffeeShop[i].location) {
-      CreateCoffeeShop[i].minCust = minFootTraffic;
-      CreateCoffeeShop[i].maxCust = maxFootTraffic;
-      CreateCoffeeShop[i].avgSale = estimatedSalesPerCustomer;
-      CreateCoffeeShop[i].scheduleDujour = sliderArray;
-      CreateCoffeeShop[i].hoursOneByOneArray = timeString(CreateCoffeeShop[i].scheduleDujour);
+      newCoffeeShop.listTotalSalesArray();
+      newCoffeeShop.render();
+      
+      // var domSalesInput = document.getElementsByName('newName')[0];
+      // domSalesInput.setAttribute('placeholder', CreateCoffeeShop.allShops);
+      // var domSalesInput = document.getElementsByName('minFootTraffic')[0];
+      // domSalesInput.setAttribute('placeholder', store.minCust);
+      // var domSalesInput = document.getElementsByName('maxFootTraffic')[0];
+      // domSalesInput.setAttribute('placeholder', store.maxCust);
+      // var domSalesInput = document.getElementsByName('estimatedSalesPerCustomer')[0];
+      // domSalesInput.setAttribute('placeholder', store.avgSale);      
+      
+      break;
+    } else if (newName === CreateCoffeeShop.allShops[i].location) {
+      CreateCoffeeShop.allShops[i].minCust = minFootTraffic;
+      CreateCoffeeShop.allShops[i].maxCust = maxFootTraffic;
+      CreateCoffeeShop.allShops[i].avgSale = estimatedSalesPerCustomer;
+      CreateCoffeeShop.allShops[i].scheduleDujour = sliderArray;
+      CreateCoffeeShop.allShops[i].hoursOneByOneArray = timeString(CreateCoffeeShop.allShops[i].scheduleDujour);
     // this.salesEveryBusinessHour = [];
-      CreateCoffeeShop[i].location.listTotalSalesArray();
+      CreateCoffeeShop.allShops[i].listTotalSalesArray();
+      break;
     }
     }
-  }
-  // event.target.newName.value = null;
-  // event.target.minFootTraffic.value = null;
-  // event.target.maxFootTraffic.value = null;
-  // event.target.estimatedSalesPerCustomer.value = null;
- 
+  // }
+  event.target.newName.value = null;
+  event.target.minFootTraffic.value = null;
+  event.target.maxFootTraffic.value = null;
+  event.target.estimatedSalesPerCustomer.value = null;
 
-  sliderAmA.value = 6;
-  sliderAmO.value = 12;
-  sliderPmA.value = 13;
-  sliderPmO.value = 19;
+  var domSalesInput = document.getElementsByName('newName')[0];
+  domSalesInput.setAttribute('placeholder', newName);
+  var domSalesInput = document.getElementsByName('minFootTraffic')[0];
+  domSalesInput.setAttribute('placeholder', minFootTraffic);
+  var domSalesInput = document.getElementsByName('maxFootTraffic')[0];
+  domSalesInput.setAttribute('placeholder', maxFootTraffic);
+  var domSalesInput = document.getElementsByName('estimatedSalesPerCustomer')[0];
+  domSalesInput.setAttribute('placeholder', estimatedSalesPerCustomer);
 
-  newCoffeeShop.listTotalSalesArray();
-  newCoffeeShop.render();
+
+
+  // event.target.newName.value = ''
+
+  // sliderAmA.value = 6;
+  // sliderAmO.value = 12;
+  // sliderPmA.value = 13;
+  // sliderPmO.value = 19;
+
+  // newCoffeeShop.listTotalSalesArray();
+  // newCoffeeShop.render();
   totalsFooterRow();
 }
 
