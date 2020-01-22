@@ -11,6 +11,8 @@ globalSalesPerHour.length = standardBusinessHours.length;
 
 var formSelector = document.querySelector('#localeSelector');
 formSelector.addEventListener('change', handleSelector);
+var createCoffeeShopForm = document.getElementById('addUpdates');
+createCoffeeShopForm.addEventListener('submit', handleSubmit);
 
 var sliderAmA = document.getElementById('rangeAmA');
 var sliderAmO = document.getElementById('rangeAmO');
@@ -194,7 +196,7 @@ function listRender(store){
   // var domSalesInput = document.getElementsByClassName('salesData')[0];
   
   var domSalesInput = document.getElementsByName('newName')[0];
-  domSalesInput.setAttribute('placeholder', 'BOOGABOO');
+  domSalesInput.setAttribute('placeholder', 'New Localation Name');
   var domSalesInput = document.getElementsByName('minFootTraffic')[0];
   domSalesInput.setAttribute('placeholder', store.minCust);
   var domSalesInput = document.getElementsByName('maxFootTraffic')[0];
@@ -395,10 +397,7 @@ function handleSelector (event){
   }
 }
 
-
-
-var createCoffeeShopForm = document.getElementById('addUpdates');
-createCoffeeShopForm.addEventListener('submit', handleSubmit);
+///CALL handleSubmit to create new location, only after even 'submit', or update previous
 function handleSubmit(event){
   event.preventDefault();
   var newName = event.target.newName.value;
@@ -425,14 +424,20 @@ function handleSubmit(event){
   // sliderPmO.oninput = function () {
   //   pmOmega = this.value;
   // }
-  
-  var newCoffeeShop = new CreateCoffeeShop(newName, minFootTraffic, maxFootTraffic, estimatedSalesPerCustomer, sliderArray);
-
-  if (formSelector.value === 'Tokyo'){
-    console.log('Yippie');
+  for (var i = 0; i < CreateCoffeeShop.length; i++){
+    if(newName =! CreateCoffeeShop[i].location){
+    var newCoffeeShop = new CreateCoffeeShop(newName, minFootTraffic, maxFootTraffic, estimatedSalesPerCustomer, sliderArray);
+    } else if (newName === CreateCoffeeShop[i].location) {
+      CreateCoffeeShop[i].minCust = minFootTraffic;
+      CreateCoffeeShop[i].maxCust = maxFootTraffic;
+      CreateCoffeeShop[i].avgSale = estimatedSalesPerCustomer;
+      CreateCoffeeShop[i].scheduleDujour = sliderArray;
+      CreateCoffeeShop[i].hoursOneByOneArray = timeString(CreateCoffeeShop[i].scheduleDujour);
+    // this.salesEveryBusinessHour = [];
+      CreateCoffeeShop[i].location.listTotalSalesArray();
+    }
+    }
   }
-
-
   // event.target.newName.value = null;
   // event.target.minFootTraffic.value = null;
   // event.target.maxFootTraffic.value = null;
