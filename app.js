@@ -199,7 +199,7 @@ function listRender(store){
   // var domSalesInput = document.getElementsByClassName('salesData')[0];
   
   var domSalesInput = document.getElementsByName('newName')[0];
-  domSalesInput.setAttribute('placeholder', 'New Localation Name');
+  domSalesInput.setAttribute('placeholder', 'New Location Name');
   var domSalesInput = document.getElementsByName('minFootTraffic')[0];
   domSalesInput.setAttribute('placeholder', store.minCust);
   var domSalesInput = document.getElementsByName('maxFootTraffic')[0];
@@ -444,33 +444,50 @@ function handleSubmit(event){
   // sliderPmO.oninput = function () {
   //   pmOmega = this.value;
   // }
+  var booleanSearch = false;
   for (var i = 0; i < CreateCoffeeShop.allShops.length; i++){
-    if (newName !== CreateCoffeeShop.allShops[i].location){
-    var newCoffeeShop = new CreateCoffeeShop(newName, minFootTraffic, maxFootTraffic, estimatedSalesPerCustomer, sliderArray);
-      newCoffeeShop.listTotalSalesArray();
-      newCoffeeShop.render();
-      
-      // var domSalesInput = document.getElementsByName('newName')[0];
-      // domSalesInput.setAttribute('placeholder', CreateCoffeeShop.allShops);
-      // var domSalesInput = document.getElementsByName('minFootTraffic')[0];
-      // domSalesInput.setAttribute('placeholder', store.minCust);
-      // var domSalesInput = document.getElementsByName('maxFootTraffic')[0];
-      // domSalesInput.setAttribute('placeholder', store.maxCust);
-      // var domSalesInput = document.getElementsByName('estimatedSalesPerCustomer')[0];
-      // domSalesInput.setAttribute('placeholder', store.avgSale);      
-      
-      break;
-    } else if (newName === CreateCoffeeShop.allShops[i].location) {
+    console.log('Line 448//' + CreateCoffeeShop.allShops[i].location);
+    if (newName === CreateCoffeeShop.allShops[i].location){
       CreateCoffeeShop.allShops[i].minCust = minFootTraffic;
       CreateCoffeeShop.allShops[i].maxCust = maxFootTraffic;
       CreateCoffeeShop.allShops[i].avgSale = estimatedSalesPerCustomer;
       CreateCoffeeShop.allShops[i].scheduleDujour = sliderArray;
       CreateCoffeeShop.allShops[i].hoursOneByOneArray = timeString(CreateCoffeeShop.allShops[i].scheduleDujour);
-    // this.salesEveryBusinessHour = [];
+      // this.salesEveryBusinessHour = [];
       CreateCoffeeShop.allShops[i].listTotalSalesArray();
-      break;
-    }
-    }
+      booleanSearch = true;
+    } 
+  }
+  if (booleanSearch === false){
+    var newCoffeeShop = new CreateCoffeeShop(newName, minFootTraffic, maxFootTraffic, estimatedSalesPerCustomer, sliderArray);
+    newCoffeeShop.listTotalSalesArray();
+    newCoffeeShop.render();
+    listRender(CreateCoffeeShop.allShops.newName);
+  }
+
+    // if (newName !== CreateCoffeeShop.allShops[i].location){
+    
+    //   // var domSalesInput = document.getElementsByName('newName')[0];
+    //   // domSalesInput.setAttribute('placeholder', CreateCoffeeShop.allShops);
+    //   // var domSalesInput = document.getElementsByName('minFootTraffic')[0];
+    //   // domSalesInput.setAttribute('placeholder', store.minCust);
+    //   // var domSalesInput = document.getElementsByName('maxFootTraffic')[0];
+    //   // domSalesInput.setAttribute('placeholder', store.maxCust);
+    //   // var domSalesInput = document.getElementsByName('estimatedSalesPerCustomer')[0];
+    //   // domSalesInput.setAttribute('placeholder', store.avgSale);      
+      
+    //   break;
+    // } else if (newName === CreateCoffeeShop.allShops[i].location) {
+    //   CreateCoffeeShop.allShops[i].minCust = minFootTraffic;
+    //   CreateCoffeeShop.allShops[i].maxCust = maxFootTraffic;
+    //   CreateCoffeeShop.allShops[i].avgSale = estimatedSalesPerCustomer;
+    //   CreateCoffeeShop.allShops[i].scheduleDujour = sliderArray;
+    //   CreateCoffeeShop.allShops[i].hoursOneByOneArray = timeString(CreateCoffeeShop.allShops[i].scheduleDujour);
+    // // this.salesEveryBusinessHour = [];
+    //   CreateCoffeeShop.allShops[i].listTotalSalesArray();
+    //   break;
+    // }
+    // }
   // }
   event.target.newName.value = null;
   event.target.minFootTraffic.value = null;
