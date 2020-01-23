@@ -522,6 +522,14 @@ function handleSubmit(event) {
     }
     if (booleanSearch === false) {
       var newCoffeeShop = new CreateCoffeeShop(newName, minFootTraffic, maxFootTraffic, estimatedSalesPerCustomer, sliderArray);
+      
+      var jk = document.getElementById('localeSelector');
+      var jkjkjk = document.createElement('option');
+      jkjkjk.value = newName;
+      jkjkjk.textContent = newName;
+      jk.appendChild(jkjkjk);
+      // document.appendChild(jk);
+      
       newCoffeeShop.listTotalSalesArray();
       newCoffeeShop.render();
       // listRender(CreateCoffeeShop.allShops.newName);
