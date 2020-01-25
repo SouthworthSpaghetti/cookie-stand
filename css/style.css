@@ -7,6 +7,10 @@ color: rgb(255, 255, 255) gray;
 color: rgb(115, 115, 115); white*/
 /* background-image: url(/img/chinook.jpg); */
 
+body {
+  background-color: #BADA55;
+}
+
 fieldset {
   height: 400px;
   width: 318px;
@@ -22,6 +26,10 @@ fieldset legend {
   margin-left: 75px; 
   margin-top: 1px; 
   /* z-index: 2; */
+}
+
+fieldset legend:hover{
+  filter: invert(100%);
 }
 
 

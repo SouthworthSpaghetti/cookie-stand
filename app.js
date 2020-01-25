@@ -191,7 +191,8 @@ function listRender(store) {
   // if (result == seattle.location){
   //   console.log('good');
   // } else {
-  //   console.log('x');
+  //   console.log('/./././' + store.minCust);
+  // var store = store;
   var x = 0;
   var standardTimeArray = [];
   var domSimulation = document.getElementsByTagName('article')[0];
@@ -200,14 +201,14 @@ function listRender(store) {
 
   // console.log('store.maxCust//' + store.maxCust);//JAN22
 
-  // var domSalesInput = document.getElementsByName('newName')[0];
-  // domSalesInput.setAttribute('placeholder', 'New Location Name');
-  // var domSalesInput = document.getElementsByName('minFootTraffic')[0];
-  // domSalesInput.setAttribute('placeholder', store.minCust);//JAN22
-  // var domSalesInput = document.getElementsByName('maxFootTraffic')[0];
-  // domSalesInput.setAttribute('placeholder', store.maxCust);
-  // var domSalesInput = document.getElementsByName('estimatedSalesPerCustomer')[0];
-  // domSalesInput.setAttribute('placeholder', store.avgSale);//JAN22
+  var domSalesInput = document.getElementsByName('newName')[0];
+  domSalesInput.setAttribute('placeholder', 'New Location Name');
+  var domSalesInput = document.getElementsByName('minFootTraffic')[0];
+  domSalesInput.setAttribute('placeholder', store.minCust);//JAN22
+  var domSalesInput = document.getElementsByName('maxFootTraffic')[0];
+  domSalesInput.setAttribute('placeholder', store.maxCust);
+  var domSalesInput = document.getElementsByName('estimatedSalesPerCustomer')[0];
+  domSalesInput.setAttribute('placeholder', store.avgSale);//JAN22
 
 
   // domSalesInput.textContent = 'boogaboo';Y
@@ -230,7 +231,7 @@ function listRender(store) {
   // domWholeBody.appendChild(domSalesInput);
 
 
-  clearFormList();
+  clearFormList();//JAN25
 
   // var drDiv = document.getElementsByTagName('div')[0];
   // // var minCust = document.getElementsByName('minFootTraffic')[0];
@@ -361,7 +362,7 @@ function clearFormList() {
 
 
   // var domSalesInput = document.getElementsByName('newName')[0];
-  // domSalesInput.setAttribute('placeholder', 'New Localation Name');
+  // domSalesInput.setAttribute('value', 'New Location Name');
   // var domSalesInput = document.getElementsByName('minFootTraffic')[0];
   // domSalesInput.setAttribute('placeholder', store.minCust);
   // var domSalesInput = document.getElementsByName('maxFootTraffic')[0];
@@ -391,36 +392,60 @@ function handleSelector(event) {
     for (var i = 0; i < document.getElementsByClassName('newLocation').length; i++) {
       document.getElementsByClassName('newLocation')[i].style.display = 'inline-block';
     }
+    document.getElementsByClassName('newLocation')[1].value = '';
+    var domSalesInput = document.getElementsByName('newName')[0];
+    domSalesInput.setAttribute('placeholder', 'New Location Name');
+    var domSalesInput = document.getElementsByName('minFootTraffic')[0];
+    domSalesInput.setAttribute('placeholder', 'Minimum customers per hour');//JAN22
+    var domSalesInput = document.getElementsByName('maxFootTraffic')[0];
+    domSalesInput.setAttribute('placeholder', 'Maximum customers per hour');
+    var domSalesInput = document.getElementsByName('estimatedSalesPerCustomer')[0];
+    domSalesInput.setAttribute('placeholder', 'Sales');//JAN22
     clearFormList();
   } else {
     for (var i = 0; i < document.getElementsByClassName('newLocation').length; i++) {
       document.getElementsByClassName('newLocation')[i].style.display = 'none';
     }
-    switch (result) {
-      case (seattle.location):
-        document.getElementsByClassName('newLocation')[1].value = seattle.location;
-        listRender(seattle);
-        break;
-      case (tokyo.location):
-        document.getElementsByClassName('newLocation')[1].value = tokyo.location;
-        listRender(tokyo);
-        break;
-      case (paris.location):
-        document.getElementsByClassName('newLocation')[1].value = paris.location;
-        listRender(paris);
-        break;
-      case (dubai.location):
-        document.getElementsByClassName('newLocation')[1].value = dubai.location;
-        listRender(dubai);
-        break;
-      case (lima.location):
-        document.getElementsByClassName('newLocation')[1].value = lima.location;
-        listRender(lima);
-        break;
-      default:
-        // console.log(lkjlkjjlkj);
-        break;
+    for(var j = 0; j < CreateCoffeeShop.allShops.length; j++){
+      console.log(CreateCoffeeShop.allShops[j]);
+      if (result === CreateCoffeeShop.allShops[j].location){
+        document.getElementsByClassName('newLocation')[1].value = CreateCoffeeShop.allShops[j].location;
+        // var domSalesInput = 
+        document.getElementsByName('minFootTraffic')[0].value = '';
+        // var domSalesInput = 
+        document.getElementsByName('maxFootTraffic')[0].value = '';
+        // var domSalesInput = 
+        document.getElementsByName('estimatedSalesPerCustomer')[0].value = '';
+        console.log(CreateCoffeeShop.allShops[j].location);
+        listRender(CreateCoffeeShop.allShops[j]);
+      }
     }
+
+    // switch (result) {
+    //   case (seattle.location):
+    //     listRender(seattle);
+    //     document.getElementsByClassName('newLocation')[1].value = seattle.location;
+    //     break;
+    //   case (tokyo.location):
+    //     document.getElementsByClassName('newLocation')[1].value = tokyo.location;
+    //     listRender(tokyo);
+    //     break;
+    //   case (paris.location):
+    //     document.getElementsByClassName('newLocation')[1].value = paris.location;
+    //     listRender(paris);
+    //     break;
+    //   case (dubai.location):
+    //     document.getElementsByClassName('newLocation')[1].value = dubai.location;
+    //     listRender(dubai);
+    //     break;
+    //   case (lima.location):
+    //     document.getElementsByClassName('newLocation')[1].value = lima.location;
+    //     listRender(lima);
+    //     break;
+    //   default:
+    //     // console.log(lkjlkjjlkj);
+    //     break;
+    // }
   }
 }
 
@@ -440,6 +465,7 @@ function handleSubmit(event) {
     if (jk.length < 1) {
       booleanValidation = false;
       alert('Please do input data into required fields.');
+      break;
     }
   }
   if (booleanValidation === true) {
@@ -486,12 +512,14 @@ function handleSubmit(event) {
   // var maxFootTraffic = event.target.maxFootTraffic.value;
   // var estimatedSalesPerCustomer = event.target.estimatedSalesPerCustomer.value;
 
+  var sliderArray = [[Number(sliderAmA.value), Number(sliderAmO.value)], [Number(sliderPmA.value), Number(sliderPmO.value)]];
+  console.log(sliderArray);
 
 
 
   if (booleanValidation === true) {
-    var sliderArray = [[Number(sliderAmA.value), Number(sliderAmO.value)], [Number(sliderPmA.value), Number(sliderPmO.value)]];
-    console.log(sliderArray);
+    // clearFormList();//JAN24 CLEAR TABLE AND FORM VALUES HERE???//NO MUST RENDER SALES DATA BEFORE CLEAR
+    //JAN24 CLEAR TABLE AND FORM HERE??
     // sliderAmA.oninput = function () {
     //   console.log(this.value);
     //   amAlpha = this.value;
@@ -507,6 +535,7 @@ function handleSubmit(event) {
     // }
     var booleanSearch = false;
 
+    //IF DROPDOWN/SUBMIT SHOWS ALREADY EXISTS, UPDATE DATA
     for (var i = 0; i < CreateCoffeeShop.allShops.length; i++) {
       console.log('Line 448//' + CreateCoffeeShop.allShops[i].location);
       if (newName === CreateCoffeeShop.allShops[i].location) {
@@ -514,26 +543,30 @@ function handleSubmit(event) {
         CreateCoffeeShop.allShops[i].maxCust = maxFootTraffic;
         CreateCoffeeShop.allShops[i].avgSale = estimatedSalesPerCustomer;
         CreateCoffeeShop.allShops[i].scheduleDujour = sliderArray;
-        CreateCoffeeShop.allShops[i].hoursOneByOneArray = timeString(CreateCoffeeShop.allShops[i].scheduleDujour);
+        CreateCoffeeShop.allShops[i].hoursOneByOneArray = timeString(sliderArray);
         // this.salesEveryBusinessHour = [];
         CreateCoffeeShop.allShops[i].listTotalSalesArray();
         booleanSearch = true;
       }
     }
-    if (booleanSearch === false) {
-      var newCoffeeShop = new CreateCoffeeShop(newName, minFootTraffic, maxFootTraffic, estimatedSalesPerCustomer, sliderArray);
-      
+    if (booleanSearch === false) {//JAN24
+    //IF DROPDOWN/SUBMIT SHOWS NEW LOCATION, CREATE AND POPULATE FORM
+      var newCoffeeShop = new CreateCoffeeShop(newName, Number(minFootTraffic), Number(maxFootTraffic), Number(estimatedSalesPerCustomer), sliderArray);
+
       var jk = document.getElementById('localeSelector');
       var jkjkjk = document.createElement('option');
       jkjkjk.value = newName;
       jkjkjk.textContent = newName;
       jk.appendChild(jkjkjk);
       // document.appendChild(jk);
-      
+      var xyz = CreateCoffeeShop.allShops.length -1;
+      // var xyzxyz = CreateCoffeeShop.allShops[xyz].location;
       newCoffeeShop.listTotalSalesArray();
       newCoffeeShop.render();
-      // listRender(CreateCoffeeShop.allShops.newName);
-    }
+      // console.log(xyzxyz);
+      listRender(CreateCoffeeShop.allShops[xyz]);
+    }//JAN24
+
 
     // if (newName !== CreateCoffeeShop.allShops[i].location){
 
@@ -559,11 +592,12 @@ function handleSubmit(event) {
     // }
     // }
     // }
+
     event.target.newName.value = null;
     event.target.minFootTraffic.value = null;
     event.target.maxFootTraffic.value = null;
     event.target.estimatedSalesPerCustomer.value = null;
-
+    
     var domSalesInput = document.getElementsByName('newName')[0];
     domSalesInput.setAttribute('placeholder', newName);
     var domSalesInput = document.getElementsByName('minFootTraffic')[0];
@@ -572,7 +606,8 @@ function handleSubmit(event) {
     domSalesInput.setAttribute('placeholder', maxFootTraffic);
     var domSalesInput = document.getElementsByName('estimatedSalesPerCustomer')[0];
     domSalesInput.setAttribute('placeholder', estimatedSalesPerCustomer);
-
+    
+    // listRender();//JAN24?
 
 
     // event.target.newName.value = ''
