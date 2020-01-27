@@ -14,7 +14,8 @@
       <h3>Global Selection</h3>
       <!-- <label for="localeSelector">Select Location</label> -->
       <select name="selectLocation" id="localeSelector">
-        <option value="selectLocation">Select Location</option>
+        <option value=" 
+        ">Select Location</option>
         <option value="Seattle">Seattle</option>
         <option value="Tokyo">Tokyo</option>
         <option value="Paris">Paris</option>
@@ -23,12 +24,15 @@
         <option value="Spawn New Location">Spawn New Location</option>
       </select>
       <!-- <label>Select Location</label><input name="selectionDropDown" type="text" maxlength="18" minlength="1"> -->
+      <!-- <p class="shadowText" id="shadowA">SHADING</p><br>
+      <p class="shadowText" id="shadowB">SHADING</p><br>
+      <p class="shadowText" id="shadowC">SHADING</p><br> -->
     </legend> 
-    <div>
+    <div id="salesDataContainer">
     <label class="newLocation">Locale Name</label><input name="newName" type="text" maxlength="18" minlength="1" class="newLocation"><br>
-    <label>HourlyminCust</label><input class="salesData" name="minFootTraffic" type="text" min=".3" max="60" maxlength="3"><br>
+    <label>HourlyminCust</label><input class="salesData" name="minFootTraffic" type="text" min=".3" max="60" maxlength="3" placeholder=""><br>
     <label>HourlymaxCust</label><input class="salesData" name="maxFootTraffic" type="text" min=".3" max="101" maxlength="3"><br>
-    <label>Average Sales Per Cust</label><input class="salesData" name="estimatedSalesPerCustomer" type="number" input name="minFootTraffic" min="1" max="19" step=".3"><br>
+    <label>Average Sales Per Cust</label><input class="salesData" name="estimatedSalesPerCustomer" type="text" input name="minFootTraffic" min="1" max="19"><br>
     </div>
     <!-- <label>Daily schedule iterations</label><input name="scheduleDujour" type="number" step=".3"> -->
     <figure>
