@@ -156,6 +156,8 @@ CreateCoffeeShop.prototype.render = function () {//take out header build
   // this.salesEveryBusinessHour[this.salesEveryBusinessHour.length - 1] + ' cookies';
   storeSimulation.appendChild(localeDailyTotalData);
   domSimulation.appendChild(storeSimulation);
+  console.log('/./././' + this.location);
+  totalsFooterRow();
 };//end render
 
 
@@ -549,6 +551,7 @@ function handleSubmit(event) {
         CreateCoffeeShop.allShops[i].listTotalSalesArray();
         booleanSearch = true;
         listRender(CreateCoffeeShop.allShops[i]);
+        CreateCoffeeShop.allShops[i].render();
       }
     }
     if (booleanSearch === false) {//JAN24
@@ -566,7 +569,9 @@ function handleSubmit(event) {
       newCoffeeShop.listTotalSalesArray();
       newCoffeeShop.render();
       // console.log(xyzxyz);
-      listRender(CreateCoffeeShop.allShops[xyz]);
+
+      // listRender(CreateCoffeeShop.allShops[xyz]);
+      listRender(newCoffeeShop);
     }//JAN24
 
 
@@ -662,9 +667,19 @@ totalsFooterRow();
 
 
 function totalsFooterRow() {//one time footer function start
+    if (document.getElementsByTagName('tfoot')[0]) {
+      var domClear = document.getElementsByTagName('tfoot')[0];
+      domClear.remove();
+  //   // var footerRow = document.getElementsByTagName('tfoot')[0];
+  //   // var rowHeader = document.createElement('th');
+  //   // rowHeader.textContent = 'Global Totals';
+  //   // footerRow.appendChild(rowHeader);
+  //   // domTableLocale.appendChild(footerRow);
+  } 
+    // if (!document.getElementsByTagName('tfoot')[0]){
   var globalDailySales = 0;
   var domTableLocale = document.getElementsByTagName('table')[0];//DOM INJECTION
-  var footerRow = document.createElement('tr');//in list, this isn't necessary
+  var footerRow = document.createElement('tfoot');//in list, this isn't necessary
   // domNewTable.textContent = 'Seattle';//NOW A PROPERTY OF THE STORE OBJECT
   var rowHeader = document.createElement('th');
   rowHeader.textContent = 'Global Totals';
@@ -680,5 +695,4 @@ function totalsFooterRow() {//one time footer function start
   rowTailer.textContent = globalDailySales;
   footerRow.appendChild(rowTailer);
   domTableLocale.appendChild(footerRow);
-
 }//one time footer function end
