@@ -2,8 +2,8 @@
 
 console.log('Sup soup soap');
 var standardBusinessHours = timeString([[6, 19]]);
-var globalSalesPerHour = [];
-globalSalesPerHour.length = standardBusinessHours.length;
+// var globalSalesPerHour = [];
+// globalSalesPerHour.length = standardBusinessHours.length;
 // console.log(globalSalesPerHour);
 // this.listTotalHoursMethod();///TRYING TO BUILD INTO FUNCTION, INSTEAD
 // var standardBusinessHours = [];
@@ -67,16 +67,16 @@ CreateCoffeeShop.prototype.listTotalSalesArray = function () {
     this.salesEveryBusinessHour[i] = (Math.round(x * this.avgSale));
     // var xTotals = this.salesEveryBusinessHour[i];
 
-    for (var ii = 0; ii < standardBusinessHours.length; ii++) {
-      if (isNaN(globalSalesPerHour[ii])) {
-        globalSalesPerHour[ii] = 0;
-        // console.log(i + ' clear ii ' + ii);
-      } if (this.hoursOneByOneArray[i] === standardBusinessHours[ii]) {
-        globalSalesPerHour[ii] += this.salesEveryBusinessHour[i];
-        ii = standardBusinessHours.length;
-        // console.log(i + ' as i/././ii as' + ii);
-      }
-    }
+    // for (var ii = 0; ii < standardBusinessHours.length; ii++) {
+    //   if (isNaN(globalSalesPerHour[ii])) {
+    //     globalSalesPerHour[ii] = 0;
+    //     // console.log(i + ' clear ii ' + ii);
+    //   } if (this.hoursOneByOneArray[i] === standardBusinessHours[ii]) {
+    //     globalSalesPerHour[ii] += this.salesEveryBusinessHour[i];
+    //     ii = standardBusinessHours.length;
+    //     // console.log(i + ' as i/././ii as' + ii);
+    //   }
+    // }
 
 
 
@@ -102,31 +102,49 @@ function randomFootTraffic(min, max) {
   // console.log(Math.round(Math.random(0) * (max - min)) + min);
 }
 
+function clearTableClass(store) { //this.location
+  for (var j = 0; j < document.getElementsByClassName(store).length; j++) {
+    document.getElementsByClassName(store)[j].remove();
+    console.log("/././." + j)
+  }
+}
+
 CreateCoffeeShop.prototype.render = function () {//take out header build
   // this.listTotalHoursMethod();///TRYING TO BUILD INTO FUNCTION, INSTEAD
   // var standardBusinessHours = [];
   // var standardBusinessHours = timeString([[6, 19]]);
+  if (document.getElementsByClassName(this.location)) {
+    clearTableClass(this.location);
+  }
+
   var localeDailySales = 0;
   // console.log(this.location);
   // var domSimulation = document.getElementById('cookieSales');//DOM INJECTION
   var domSimulation = document.getElementsByTagName('table')[0];//DOM INJECTION
   // var storeSimulation = document.createElement('tr');//or <ul>, for list
-  var storeSimulation = document.createElement('tr');//or <ul>, for list
   // var tableRow = document.createElement('tr');//in list, this isn't necessary
+
+  var storeSimulation = document.createElement('tr');//or <ul>, for list
+  storeSimulation.setAttribute('class', this.location);
   var listHeader = document.createElement('th');
   listHeader.textContent = this.location;
+  listHeader.setAttribute('class', this.location);
   storeSimulation.appendChild(listHeader);
   // storeSimulation.textContent = 'Seattle';//NOW A PROPERTY OF THE STORE OBJECT
+
   for (var i = 0; i < standardBusinessHours.length; i++) {
     var listItemHourlyUpdate = document.createElement('td');
+    listItemHourlyUpdate.setAttribute('class', this.location);
     for (var ii = 0; ii < this.hoursOneByOneArray.length; ii++) {
       if (this.hoursOneByOneArray[ii] === standardBusinessHours[i]) {
         listItemHourlyUpdate.textContent = this.salesEveryBusinessHour[ii];
+        listItemHourlyUpdate.setAttribute('class', this.location);
         storeSimulation.appendChild(listItemHourlyUpdate);
         localeDailySales += this.salesEveryBusinessHour[ii];
         ii = this.hoursOneByOneArray.length;
       } else {
         listItemHourlyUpdate.textContent = '';
+        listItemHourlyUpdate.setAttribute('class', this.location);
         storeSimulation.appendChild(listItemHourlyUpdate);
       }
     }
@@ -153,6 +171,7 @@ CreateCoffeeShop.prototype.render = function () {//take out header build
 
   var localeDailyTotalData = document.createElement('td');
   localeDailyTotalData.textContent = localeDailySales + ' cookies';
+  localeDailyTotalData.setAttribute('class', this.location);
   // this.salesEveryBusinessHour[this.salesEveryBusinessHour.length - 1] + ' cookies';
   storeSimulation.appendChild(localeDailyTotalData);
   domSimulation.appendChild(storeSimulation);
@@ -408,9 +427,9 @@ function handleSelector(event) {
     for (var i = 0; i < document.getElementsByClassName('newLocation').length; i++) {
       document.getElementsByClassName('newLocation')[i].style.display = 'none';
     }
-    for(var j = 0; j < CreateCoffeeShop.allShops.length; j++){
+    for (var j = 0; j < CreateCoffeeShop.allShops.length; j++) {
       console.log(CreateCoffeeShop.allShops[j]);
-      if (result === CreateCoffeeShop.allShops[j].location){
+      if (result === CreateCoffeeShop.allShops[j].location) {
         document.getElementsByClassName('newLocation')[1].value = CreateCoffeeShop.allShops[j].location;
         // var domSalesInput = 
         document.getElementsByName('minFootTraffic')[0].value = '';
@@ -482,7 +501,7 @@ function handleSubmit(event) {
       if (isNaN(event.target.minFootTraffic.value)) {
         booleanValidation = false;
         alert('Please do input minimum foot traffic data numbers into required fields.');
-      } else if (event.target.minFootTraffic.value > event.target.maxFootTraffic.value){
+      } else if (event.target.minFootTraffic.value > event.target.maxFootTraffic.value) {
         booleanValidation = false;
         alert('Please do input proper minimum and maxiumum data into foot traffic fields.');
       } else {
@@ -555,7 +574,7 @@ function handleSubmit(event) {
       }
     }
     if (booleanSearch === false) {//JAN24
-    //IF DROPDOWN/SUBMIT SHOWS NEW LOCATION, CREATE AND POPULATE FORM
+      //IF DROPDOWN/SUBMIT SHOWS NEW LOCATION, CREATE AND POPULATE FORM
       var newCoffeeShop = new CreateCoffeeShop(newName, minFootTraffic, maxFootTraffic, estimatedSalesPerCustomer, sliderArray);
 
       var jk = document.getElementById('localeSelector');
@@ -564,7 +583,7 @@ function handleSubmit(event) {
       jkjkjk.textContent = newName;
       jk.appendChild(jkjkjk);
       // document.appendChild(jk);
-      var xyz = CreateCoffeeShop.allShops.length -1;
+      var xyz = CreateCoffeeShop.allShops.length - 1;
       // var xyzxyz = CreateCoffeeShop.allShops[xyz].location;
       newCoffeeShop.listTotalSalesArray();
       newCoffeeShop.render();
@@ -604,7 +623,7 @@ function handleSubmit(event) {
     event.target.minFootTraffic.value = null;
     event.target.maxFootTraffic.value = null;
     event.target.estimatedSalesPerCustomer.value = null;
-    
+
     var domSalesInput = document.getElementsByName('newName')[0];
     domSalesInput.setAttribute('placeholder', newName);
     var domSalesInput = document.getElementsByName('minFootTraffic')[0];
@@ -613,7 +632,7 @@ function handleSubmit(event) {
     domSalesInput.setAttribute('placeholder', maxFootTraffic);
     var domSalesInput = document.getElementsByName('estimatedSalesPerCustomer')[0];
     domSalesInput.setAttribute('placeholder', estimatedSalesPerCustomer);
-    
+
     // listRender();//JAN24?
 
 
@@ -667,16 +686,43 @@ totalsFooterRow();
 
 
 function totalsFooterRow() {//one time footer function start
-    if (document.getElementsByTagName('tfoot')[0]) {
-      var domClear = document.getElementsByTagName('tfoot')[0];
-      domClear.remove();
-  //   // var footerRow = document.getElementsByTagName('tfoot')[0];
-  //   // var rowHeader = document.createElement('th');
-  //   // rowHeader.textContent = 'Global Totals';
-  //   // footerRow.appendChild(rowHeader);
-  //   // domTableLocale.appendChild(footerRow);
-  } 
-    // if (!document.getElementsByTagName('tfoot')[0]){
+  if (document.getElementsByTagName('tfoot')[0]) {
+    var domClear = document.getElementsByTagName('tfoot')[0];
+    domClear.remove();
+    //   // var footerRow = document.getElementsByTagName('tfoot')[0];
+    //   // var rowHeader = document.createElement('th');
+    //   // rowHeader.textContent = 'Global Totals';
+    //   // footerRow.appendChild(rowHeader);
+    //   // domTableLocale.appendChild(footerRow);
+  }
+  // if (!document.getElementsByTagName('tfoot')[0]){
+  var globalSalesPerHour = [];
+  globalSalesPerHour.length = standardBusinessHours.length;
+  for (var i = 0; i < CreateCoffeeShop.allShops.length; i++) {
+    for (var ii = 0; ii < CreateCoffeeShop.allShops[i].hoursOneByOneArray.length; ii++) {
+      for (var iii = 0; iii < standardBusinessHours.length; iii++) {
+        if (isNaN(globalSalesPerHour[iii])) {
+          globalSalesPerHour[iii] = 0;
+        }
+        if (CreateCoffeeShop.allShops[i].hoursOneByOneArray[ii] === standardBusinessHours[iii]) {
+          globalSalesPerHour[iii] += Number(CreateCoffeeShop.allShops[i].salesEveryBusinessHour[ii]);
+        }
+      }
+    }
+  }
+  // for
+  // for (var i = 0; i < this.hoursOneByOneArray.length; i++) {
+  // for (var ii = 0; ii < standardBusinessHours.length; ii++) {
+  //   if (isNaN(globalSalesPerHour[ii])) {
+  //     globalSalesPerHour[ii] = 0;
+  //     // console.log(i + ' clear ii ' + ii);
+  //   } if (CreateCoffeeShop.allShops[ii].hoursOneByOneArray[i] === standardBusinessHours[ii]) {
+  //     globalSalesPerHour[ii] += CreateCoffeeShop.allShops[ii].salesEveryBusinessHour[i];
+  //     ii = standardBusinessHours.length;
+  //     // console.log(i + ' as i/././ii as' + ii);
+  //   }
+  // }
+
   var globalDailySales = 0;
   var domTableLocale = document.getElementsByTagName('table')[0];//DOM INJECTION
   var footerRow = document.createElement('tfoot');//in list, this isn't necessary
