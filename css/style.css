@@ -9,6 +9,7 @@ color: rgb(115, 115, 115); white*/
 
 body {
   background-color: #BADA55;
+  height: 990px;
 }
 
 fieldset {
@@ -28,9 +29,9 @@ fieldset legend {
   /* z-index: 2; */
 }
 
-fieldset legend:hover{
-  filter: invert(100%);
-}
+/* fieldset legend:hover{
+  filter: invert(50%);
+} */
 
 
 /* 
@@ -76,51 +77,55 @@ h3{
 
 h4 {
 margin: 1px;
+margin-bottom: 1px;
 text-align: center;
-
-
 }
 figure {
   float: left;
-  
+  height: 75px;
   /* line-height: 1px; */
-  padding: 15px;
+  padding: 10px;
   margin: 5px;
 }
 
 #rangeAmA {
-  width: 140px;
+  width: 142px;
   position: absolute;
-  /* float: left; */
+  top: 200x;
+  left: 45px;
   margin: 0px;
+  margin: 0px; 
+  margin-top: -10px; 
 }
 #rangeAmO {
-  width: 138px;
+  width: 141px;
   float: right;
   margin: 0px;
+  margin-top: -10px;
 }
 
 #rangePmA {
-  width: 140px;
+  width: 142px;
   position: absolute;
   /* float: left; */
-  top: 232px;
+  top: 225px;
   left: 45px;
   margin: 0px;
 }
 #rangePmO {
-  width: 138px;
+  width: 141px;
   float: right;
   margin: 0px;
+  margin-top: 1px;
 }
 
 p {
   line-height: 1px;
   margin: 1px;
-  width: 250px;
+  width: 275px;
   float: left;
   text-align: center;
-  word-spacing: 1px;
+  word-spacing: 5px;
   margin: auto;
 }
 
@@ -166,7 +171,8 @@ section button {
   margin: auto;
 }
 
-#cookieSales {
+table {
+ text-align: center;
   border-style: groove;
   float: left;
   color: black;
@@ -216,7 +222,7 @@ header:hover{
 
 
 article{
-  color: rgb(217, 210, 108);
+  color: #BADA55;
   font-family: 'Lato', sans-serif;
 }
 

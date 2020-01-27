@@ -414,7 +414,7 @@ function handleSelector(event) {
         document.getElementsByName('minFootTraffic')[0].value = '';
         // var domSalesInput = 
         document.getElementsByName('maxFootTraffic')[0].value = '';
-        // var domSalesInput = 
+        // var domSalesInput =  
         document.getElementsByName('estimatedSalesPerCustomer')[0].value = '';
         console.log(CreateCoffeeShop.allShops[j].location);
         listRender(CreateCoffeeShop.allShops[j]);
@@ -485,7 +485,7 @@ function handleSubmit(event) {
         alert('Please do input proper minimum and maxiumum data into foot traffic fields.');
       } else {
         booleanValidation = true;
-        minFootTraffic = event.target.minFootTraffic.value;
+        minFootTraffic = Number(event.target.minFootTraffic.value);
       }
       if (booleanValidation === true) {
         if (isNaN(event.target.maxFootTraffic.value)) {
@@ -493,7 +493,7 @@ function handleSubmit(event) {
           alert('Please do input maximum foot traffic data numbers into required fields.');
         } else {
           booleanValidation = true;
-          maxFootTraffic = event.target.maxFootTraffic.value;
+          maxFootTraffic = Number(event.target.maxFootTraffic.value);
         }
         if (booleanValidation === true) {
           if (isNaN(event.target.estimatedSalesPerCustomer.value)) {
@@ -501,7 +501,7 @@ function handleSubmit(event) {
             alert('Please do input average sales data numbers into required fields.');
           } else {
             booleanValidation = true;
-            estimatedSalesPerCustomer = event.target.estimatedSalesPerCustomer.value;
+            estimatedSalesPerCustomer = Number(event.target.estimatedSalesPerCustomer.value);
           }
         }
       }
@@ -539,19 +539,21 @@ function handleSubmit(event) {
     for (var i = 0; i < CreateCoffeeShop.allShops.length; i++) {
       console.log('Line 448//' + CreateCoffeeShop.allShops[i].location);
       if (newName === CreateCoffeeShop.allShops[i].location) {
+        console.log(CreateCoffeeShop.allShops[i]);
         CreateCoffeeShop.allShops[i].minCust = minFootTraffic;
         CreateCoffeeShop.allShops[i].maxCust = maxFootTraffic;
         CreateCoffeeShop.allShops[i].avgSale = estimatedSalesPerCustomer;
         CreateCoffeeShop.allShops[i].scheduleDujour = sliderArray;
         CreateCoffeeShop.allShops[i].hoursOneByOneArray = timeString(sliderArray);
-        // this.salesEveryBusinessHour = [];
+        // CreateCoffeeShop.allShops[i].salesEveryBusinessHour = [];
         CreateCoffeeShop.allShops[i].listTotalSalesArray();
         booleanSearch = true;
+        listRender(CreateCoffeeShop.allShops[i]);
       }
     }
     if (booleanSearch === false) {//JAN24
     //IF DROPDOWN/SUBMIT SHOWS NEW LOCATION, CREATE AND POPULATE FORM
-      var newCoffeeShop = new CreateCoffeeShop(newName, Number(minFootTraffic), Number(maxFootTraffic), Number(estimatedSalesPerCustomer), sliderArray);
+      var newCoffeeShop = new CreateCoffeeShop(newName, minFootTraffic, maxFootTraffic, estimatedSalesPerCustomer, sliderArray);
 
       var jk = document.getElementById('localeSelector');
       var jkjkjk = document.createElement('option');
